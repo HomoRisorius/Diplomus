@@ -1,0 +1,1887 @@
+\documentclass[11pt]{report}
+
+\usepackage{amsmath}
+\usepackage{amscd,amssymb}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amscd} 
+\usepackage{cite, tocvsec2}
+\usepackage{amstext, amsthm}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{titling}
+
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{slashed} 
+\usepackage{tikz-cd}
+\usepackage{mathabx}
+\def\acts{\lefttorightarrow}
+
+\setcounter{tocdepth}{3}
+
+\newcommand\lie[1]{\mathfrak{#1}}
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition} 
+\newtheorem{lem}[thm]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition} 
+\newtheorem{exm}[thm]{Example}
+\newtheorem{ntn}[thm]{Notation}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+
+\theoremstyle{remark}
+\newtheorem*{pr}{Proof}
+
+\numberwithin{equation}{section}
+ 
+\title{\textsc{Equivariant Cohomology for Surface Observables in Gauge Theories}}
+\author{\textsc{Olga Chekeres}, under the supervision \\
+of Prof. Anton Alekseev and Prof. Marcos Mari${\rm\tilde{n}}$o}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Introduction}
+
+   
+   Wilson line observables play an important role in gauge theories. They admit two interesting path integral descriptions. The first one, due to Alekseev-Faddeev-Shatashvili \cite{AFS}, uses path integrals over coadjoint orbits. 
+
+The second presentation is due to Diakonov-Petrov \cite{DP}. It replaces a 1-dimensional path integral with a 2-dimensional topological $\sigma$-model. 
+In \cite{DP}, this presentation was used in the discussion of the area law for Wilson lines in a gauge theory with confinement.
+
+In this work, we study the relation between the two path integral presentations. These results are discussed in Chapter \ref{research}.
+
+Our first result is a beautiful formula \eqref{DPL} for the 
+Diakonov-Petrov Lagrangian. 
+
+Our second result is the interpretation of the formula \eqref{DPL} in terms of equivariant cohomology. 
+Coadjoint orbits carry the canonical Kirillov symplectic form. We show that the expression we obtained for the Diakonov-Petrov $\sigma$-model 
+is the equivariant extension of this symplectic form corresponding to the action of the gauge group on the coadjoint orbit. This allows to define the corresponding observables on arbitrary 2-dimensional surfaces, including closed surfaces.
+
+Our third result is the formula for the partition function of 2-dimensional Yang-Mills theory with the gauge group $U(1)$ in presence of such a surface observable. 
+
+The partition function of 2-dimensional Yang-Mills with the gauge group $SU(2)$ and $SO(3)$ is computed in the article \cite{ACM}.
+
+
+
+\subsection*{Acknowledgements}
+
+
+
+\chapter{Gauge Theories in Physics}
+
+\section{Electrodynamics as the Simplest Example of a Gauge Theory}
+\subsection{General Outline}
+
+The theory of electromagnetism is described by Maxwell equations:
+%
+\begin{equation}\label{Max1}
+\nabla \cdotp \mathbf{E} = \rho , \, \, \, \, \,   \nabla \times \mathbf{B} - \frac{\partial}{\partial t} \mathbf{E} = \mathbf{j} \,\, \, \, \, \, (inhomogeneous \, \, equations),
+\end{equation}
+
+
+\begin{equation}\label{Max2}
+\nabla \cdotp \mathbf{B} = 0, \, \, \, \, \, \,  \nabla \times \mathbf{E} + \frac{\partial}{\partial t} \mathbf{B} = 0 \,\, \, \, \, (homogeneous\, \, equations),
+\end{equation}
+%
+
+
+$\mathbf{E}$ being the electric field, $\mathbf{B}$ the magnetic field,  $\mathbf{j}$ the current density and $\rho$ - the electric charge density. All the objects are functions on space-time (Minkowski space $\mathbb{R}^{3,1}$ in this case) with coordinates $x^0 = t$ and $\mathbf{x} = (x^1,x^2,x^3)$.
+
+The fields can be reexpressed in terms of the four-vector potential $A = (\phi, \mathbf{A})$ in the following way:
+
+% 
+\begin{equation}
+\mathbf{E} = \frac{\partial}{\partial t}\mathbf{A} - \nabla \phi, \, \, \, \, \,   
+\mathbf{B} = \nabla \times \mathbf{A}.
+\end{equation}
+%
+
+The description of electromagnetism may as well be written in a more general, covariant form. Thus the two fields are united in the electromagnetic field strength tensor $F_{\mu\nu} = \partial_{\mu}A_{\nu} - \partial_{\mu}A_{\nu}$, where the three-vectors $\mathbf{E}$ and $\mathbf{B}$ are recovered as 
+%
+\begin{equation}
+F^{0i} = - E^i, \,\,\,\,     F^{ij} = - \epsilon^{ijk}B^k.
+\end{equation}
+%
+
+The electrodynamics Lagrangian is given by
+%
+\begin{equation}
+\mathcal{L}_{EM} = -\frac{1}{4} F_{\mu\nu}F^{\mu\nu} + j_{\mu}A^{\mu},
+\end{equation}
+%
+where $j_{\mu} = (\rho, \mathbf{j})$ is charge-current density, or the source.
+By variation of the Lagrangian with respect to the potential $A_\mu$ one obtains the equations of motion:
+%
+\begin{equation}\label{MaxGen}
+\partial_{\mu}F^{\mu\nu} = j^{\nu}.
+\end{equation}
+%
+These are exactly the first couple of Maxwell equations \eqref{Max1}. These are the \lq\lq{}true\rq\rq{} Euler-Lagrange equations. A soon as we get them the other two equations \eqref{Max2} are then automatically satisfied. One can define a tensor $\tilde{F}^{\mu\nu} = \frac{1}{2}\epsilon^{\mu\nu\lambda\delta}F_{\lambda\delta}$, dual to the field strength tensor $F_{\mu\nu}$ and construct the expression $\partial_{\mu}\tilde{F}^{\mu\nu}$ which vanishes if one assumes $A_{\delta}$ to be a regular function. %\footnote{In the situation when $A_{\delta}$ is not regular, instead of equations \eqref{MaxCov2} one gets the description of the Dirac monopole.} 
+This leads to the statement
+%
+\begin{equation}\label{MaxCov2}
+\partial_{\mu}\tilde{F}^{\mu\nu}=0
+\end{equation}
+%
+which is equivalent to \eqref{Max2}. 
+
+
+
+\subsection{Electrodynamics in Language of Differential Forms}
+For the purpose of this work it is useful to describe electrodynamics in terms of differential forms.
+ 
+
+
+
+
+Let $F \in \Omega^2(\mathbb{R}^{3,1})$ be the electro-magnetic field strength 2-form on Minkowski space-time. It can be written explicitly in components:
+%
+\begin{equation}
+F = - E^idx^0\wedge dx^i - B^1dx^2\wedge dx^3 +B^2dx^1\wedge dx^3 - B^3dx^1\wedge dx^2.
+\end{equation}
+%
+For 4-dimensional space its Hodge dual $\ast F$ is also a 2-form:
+%
+\begin{equation}
+\ast F = B^idx^0\wedge dx^i-E^1 dx^2\wedge dx^3 +E^2 dx^1\wedge dx^3 -E^3dx^1\wedge dx^2.
+\end{equation}
+It is obtained by applying the Hodge star operator $\ast : \Omega^n(\mathbb{R}^{3,1})\to \Omega^{4-n}(\mathbb{R}^{3,1})$. Notice that in this notation the duality between electric $\mathbf{E}$ and magnetic $\mathbf{B}$ fields becomes manifest. 
+
+Accordingly one can define a charge-current density 3-form:
+%
+\begin{equation}
+J = -\rho dx^1\wedge dx^2\wedge dx^3 + dx^0\wedge (j^1dx^2\wedge dx^3 - j^2 dx^1\wedge dx^3 +j^3dx^1\wedge dx^2). 
+\end{equation}
+%
+
+Then the homogenious Maxwell equations \eqref{Max2} can be written as
+%
+\begin{equation}\label{homog}
+dF=0,
+\end{equation}
+and the inhomogeneous ones \eqref{Max1} as 
+%
+\begin{equation}\label{inhomog}
+d\ast F=J.
+\end{equation}
+%
+The equation \eqref{inhomog} implies charge conservation $dJ=0$ and the expression \eqref{homog} indicates that the field strength $F$ is a closed 2-form.
+
+Recall that by Poincar$\rm \acute{e}$\rq{}s lemma, on a contractible manifold every closed form is also exact. Thus, as a conseuence of the  equation \eqref{homog} there exists some 1-form $A \in \Omega^1(\mathbb{R}^{3,1})$ such that $F=dA$. This 1-form $A$ is known as the electro-magnetic potential. 
+
+In terms of potential $A$ the electromagnetic Lagrangian is defined as
+%
+\begin{equation}
+\mathcal{L}_{EM} = \frac{1}{2}dA\wedge \ast dA + A\wedge J = \frac{1}{2}F\wedge \ast F + A\wedge J
+\end{equation}
+By variation of this Lagrangian with respect to $A$ one obtains Maxwell equations \eqref{Max1} or \eqref{inhomog}.
+
+
+
+\subsection{U(1) Gauge Invariance}
+
+The defining equation $F=dA$ for the potential implies that $A$ is not unique. Due to the fact that $d^2 =0$, $A$ is defined up to an arbitrary closed 1-form on $\mathbb{R}^{3,1}$. Again, on the Minkowski space that arbitrary 1-form is also exact and is given by $d\theta$, where $\theta\in \Omega^0(\mathbb{R}^{3,1})$ is an arbitrary function. Thus the two potentials $A$ and $\tilde{A}$ related by $\tilde{A} = A + d\theta$ are equivalent for the theory, they are indistinguishable from one another in the equations of motion or in the Lagrangian. 
+The transformation 
+%
+\begin{equation}\label{GTEM}
+A \longmapsto A + d\theta
+\end{equation} 
+%
+is called a gauge transformation defined by $\theta$. 
+
+We prefer to consider $U(1)$ as a symmetry group of gauge transformations for electromagnetism, which is larger than $\mathbb{R}$.\footnote{The difference between $\mathbb{R}$- and $U(1)$-invariance does not manifest itself in case of Minkowski space-time, but may become important for some other manifold.} 
+The $U(1)$ gauge transformation for the potential can be written as
+\begin{equation}
+A \longmapsto A + \frac{i}{q}dg g^{-1},
+\end{equation}
+where $g = e^{iq\theta}: \mathbb{R}^{3,1} \to U(1)$ is an element of the gauge group parametrized by a function $\theta (x)$ and by a constant $q$ which has the meaning of the electric charge.
+A particular choice of potential $A$ in its equivalence class corresponds to fixing the gauge. 
+
+When the electromagnetic field is coupled to a matter field the situation becomes more interesting. Let us consider the Dirac theory as an example. The electron is described by the Dirac spinor $\Psi : \mathbb{R}^{3,1} \to \mathbb{C}^4$. This is a complex valued wavefunction transforming in the spinorial representation of the Poincar$\acute{\rm e}$ group which gives a spin $\frac{1}{2}$  particle after quantization. The Dirac Lagrangian is
+%
+\begin{equation}\label{DL}
+\mathcal{L}_D = \bar{\Psi}(i \slashed{\partial} - m)\Psi,
+\end{equation}
+%
+where $\slashed{\partial} = \gamma^{\mu} \partial_{\mu}$. 
+The Lagrangian is invariant under a global $U(1)$ transformation
+%
+\begin{equation}
+\Psi \longmapsto g\Psi , \,\,\,\,\ \bar{\Psi} \longmapsto g^{-1}\bar{\Psi},
+\end{equation}
+where $g = e^{iq\theta}: \mathbb{R}^{3,1} \to U(1)$ with $q$ again the constant parametre of the field $\Psi$ denoting the electric charge. In the context of the global symmetry $\theta \in \mathbb{R}$ is a constant prescribing one and the same phase rotation $e^{-iq\theta}$ for the Dirac field at every point in space-time. 
+
+To promote the global $U(1)$ symmetry of the electron to a local gauge symmetry one needs to couple it to the electromagnetic field. This is achieved by so called minimal coupling which is done by replacing the derivatives with covariant derivatives:
+%
+\begin{equation}
+\partial_{\mu} \longmapsto \mathcal{D}_{\mu} = \partial_{\mu} + iqA_{\mu}.
+\end{equation}
+%
+Then the Lagrangian will be
+%
+\begin{equation}
+\mathcal{L} = \bar{\Psi}(i \slashed{\mathcal{D}} - m)\Psi = \bar{\Psi}(i \gamma^{\mu}\partial_{\mu} - m)\Psi - qA_{\mu}\bar{\Psi} \gamma^{\mu} \Psi.
+\end{equation}
+%
+It is invariant under the following gauge transformation:
+%
+\begin{equation}\label{gaugeR}
+(\Psi, A) \longmapsto (e^{iq\theta}\Psi, A - d\theta).
+\end{equation}
+%
+But now, instead of being just a constant, $\theta :  \mathbb{R}^{3,1} \to \mathbb{R}$ is an arbitrary function on space-time $\theta \in \Omega^0(\mathbb{R}^{3,1})$ prescribing to the electron phase rotations by different angles at different points of space-time and also defining the gauge transformations for the electromagnetic potential $A$. 
+
+Note that we aimed to promote the global symmetry to the local U(1) symmetry. 
+Indeed, the theory we obtained by the minimal coupling procedure is also invariant under local U(1) transformations. 
+
+To see this we rewrite the gauge transformation \eqref{gaugeR} in terms of $g = e^{iq\theta}\in U(1)$:
+\begin{equation}
+(\Psi, A) \longmapsto (g\Psi, A + \frac{i}{q}dg g^{-1}).
+\end{equation}
+%
+The electrodynamics is thus a gauge theory with a gauge group $G=U(1)$.
+
+\section{Non-Abelian Gauge Theories}
+
+The idea of $U(1)$ gauge symmetry found in electromagnetism can be generalised by replacing the commutative group $U(1)$ by a non-abelian Lie group $G$.
+
+ \subsection{General Outline}
+ Let $G$ be a compact Lie group and $\mathfrak{g}$ be its Lie algebra. 
+ We denote by $T^a$ the basis of the algebra $\mathfrak{g}$. These are the generators of the group $G$. They satisfy the commutation relations:
+ %
+ \begin{equation}
+ [T^a,T^b] = if^{ab}_cT^c,
+ \end{equation}
+ where $f^{ab}_c$ are called the structure constants of the group $G$. 
+ 
+ Recall that an element $g \in G$ near the identity can always be represented as $g = e^{i\theta_a T^a}$, where $\theta_a$ are the coordinates parametrizing the manifold. 
+ 
+ We suppose that the matter field transforms in the representation of the group $G$ and its gauge transformation is of the form:
+ %
+ \begin{equation}\label{GT}
+ \Psi \longmapsto g\Psi,
+ \end{equation}
+ %
+ where $g=e^{ie^2\theta_a T^a} \in G$.
+ The $\theta_a(x)$ are functions of space-time and $e$ the electron charge defining the coupling constant of Yang-Mills theory. This allows an independent generalised phase rotation for the matter field at each point of space-time.
+ Consider again the Dirac Lagrangian \eqref{DL}, but this time we develop this example in more detail.
+ Under transformation \eqref{GT} the Dirac Lagrangian is not invariant and transforms as follows:
+ %
+ \begin{equation}
+ \mathcal{L}_D \longrightarrow \mathcal{L}_D + \bar{\Psi} g^{-1}\gamma^{\mu} \partial_{\mu} g \Psi.
+ \end{equation}
+
+To construct a gauge invariant Lagrangian a set of vector fields $A^a_{\mu}$ is introduced. There are as many of them (labeled by the index $a$) as it is needed to compensate for that extra term ${\rm \propto \, \partial_{\mu}} g$ produced by local phase rotations with the \lq\lq{}angles\rq\rq{} $\theta_a$. Consequently, the number of the fields introduced corresponds to the number of generators of the gauge group $G$. (Recall that in case of electromagnetism with gauge group $U(1)$, there is only one gauge field giving rise to a photon after quantization. For QCD the gauge group appears to be $G=SU(3)$ with $3^2-1=8$ generators, and 8 gauge fields describe 8 gluons.)
+ 
+ The vector fields $A^a_{\mu}$, known as gauge potential, take values in the Lie algebra of the group $G$. It is convenient to consider $A_{\mu}$ in matrix representation of the algebra $\mathfrak{g}$. Then the potential can be expanded in terms of the generators $T^a$:
+ %
+ \begin{equation}
+ A_{\mu}(x) = A^a_{\mu}(x)T_a.
+ \end{equation}
+ %
+ 
+ The gauge potential is introduced into the Lagrangian by replacing the ordinary derivative with covariant derivative:
+ %
+ \begin{equation}
+ D_{\mu} \Psi = (\partial_{\mu} + i e^2A_{\mu})\Psi,
+ \end{equation}
+where $e^2$ is the Yang-Mills coupling corresponding to the square of the electric charge.
+  
+We want the covariant derivative of the matter field to transform covariantly, in the same way that the field itself, with respect to the phase multiplications \eqref{GT}:
+%
+\begin{equation}
+ D_{\mu} \Psi \mapsto  g D_{\mu}\Psi = g (\partial_{\mu} + i e^2 A_{\mu})\Psi, \,\,\, \, g\in G.
+ \end{equation}
+ The matter field changes as $\Psi \mapsto g\Psi$, then the operator $D_{\mu}$ itself is allowed to transform as $D_{\mu} \mapsto gD_{\mu}g^{-1}$, giving the desired result $D_{\mu}\Psi \mapsto gD_{\mu}g^{-1}g\Psi$. 
+ This condition defines the gauge transformation for the potential $A_{\mu} \mapsto A_{\mu}^g$ in the following way:
+ \begin{spacing}{1.45}
+ $$\partial_{\mu} + i e^2 A_{\mu}^g = g(\partial_{\mu} + i e^2 A_{\mu})g^{-1},$$
+\begin{equation}\label{YMGT}
+ \begin{array}{lll} 
+ A_{\mu}^g & = & -\frac{i}{e^2}g\partial_{\mu}g^{-1} + g A_{\mu}g^{-1} +\frac{i}{e^2} \partial_{\mu} = -\frac{i}{e^2}\partial_{\mu} + \frac{i}{e^2}gg^{-1}(\partial_{\mu}g)g^{-1} + g A_{\mu}g^{-1} +\frac{i}{e^2}\partial_{\mu}\\
+ &=& A_{\mu}^g = g A_{\mu}g^{-1} + \frac{i}{e^2}\partial_{\mu}gg^{-1}.
+ \end{array}
+ \end{equation}
+\end{spacing} 
+
+ 
+ This gauge transformation $A_{\mu}^g = g A_{\mu}g^{-1} + \frac{i}{e^2}\partial_{\mu}gg^{-1}$ can also be defined in terms of structure constants. 
+ For this purpose consider an infinitesimal transformation by $g = 1+ie^2\theta^a T_a$. Then 
+ %
+ \begin{spacing}{1.45}
+$\begin{array}{lll}
+ A_{\mu}^a T_a & \mapsto  & (1+ie^2\theta^a T_a) A_{\mu}^b T_b (1+ie^2\theta^c T_c) - \partial_{\mu} \theta^aT_a =  A_{\mu}^a T_a + ie^2\theta^aA_{\mu}^b[ T_a, T_b] -\partial_{\mu} \theta^aT_a\\
+& =&  A_{\mu}^a T_a -e^2 f_{ab}^c\theta^bA_{\mu}^cT_c - \partial_{\mu} \theta^a T_a.
+\end{array}$
+\end{spacing} 
+So each gauge field $A^a_{\mu}$ follows the transformation law fixed by the structure constants:
+%
+\begin{equation}
+ A_{\mu}^a  \mapsto A_{\mu}^a   - \partial_{\mu} \theta^a - e^2 f^a_{bc}\theta^bA_{\mu}^c.
+ \end{equation}
+ %
+ Note that for the $u(1)$ algebra the structure constants are identically zero and we get the gauge transformation \eqref{GTEM} for the Maxwell electromagnetic potential.
+ 
+ 
+ 
+ \subsection{Field Strength Tensor}
+ Constructing the field strength tensor for a non-abelian theory is a bit more complicated than for the electromagnetism. We want the tensor to transform covariantly. Knowing that the coavariant derivative satisfies the covariance property $D_{\mu} \mapsto gD_{\mu}g^{-1}$ we consequently know that its commutator will also transform covariantly $[D_{\mu}, D_{\nu}] \mapsto g[D_{\mu}, D_{\nu}]g^{-1}$. This allows us to define the field strength tensor $F_{\mu \nu}$:
+ %
+ \begin{equation}
+ F_{\mu \nu} = \frac{1}{i e^2} [D_{\mu}, D_{\nu}] = \partial_{\mu} A_{\nu} - \partial_{\nu} A_{\mu} + ie^2[A_{\mu}, A_{\nu}].
+ \end{equation}
+ %
+Being a function of $A^a_{\mu}$ the field strength tensor $F_{\mu \nu}$ takes values in the Lie algebra $\mathfrak{g}$ and can be expanded in the generators $T^a$ basis:
+\begin{equation}
+ F_{\mu \nu}^a = \partial_{\mu} A_{\nu}^a - \partial_{\nu} A_{\mu}^a - e^2 f^a_{bc}A_{\mu}^bA_{\nu}^c.
+ \end{equation}
+ %
+ Recall that in ED the structure constants are zero (as well as the commutator $[A_{\mu}, A_{\nu}]$) and the field strength tensor is linear in $A_{\mu}$. This is not the case for a non-abelian theory. 
+ 
+ Note that unlike in QED, in a non-abelian theory the field stregth $F_{\mu \nu}$ is not gauge invariant. By construction it transforms in the same way as the covariant derivative: $F_{\mu \nu} \to gF_{\mu \nu}g^{-1}$.
+ 
+ 
+ 
+ \subsection{Yang-Mills Theory}
+ 
+ Now we can write down the non-abelian analog of the Maxwell Lagrangian. 
+ The gauge invariant kinetic term will constitute the free Lagrangian. It is obtained by taking the trace on the Lie algebra of the squared field strength: 
+ \begin{equation}
+ \mathcal{L} = -\frac{1}{4e^2}{\rm Tr}F_{\mu \nu}F^{\mu \nu} = -\frac{1}{4e^2}F_{\mu \nu}^aF^{\mu \nu}_a.
+ \end{equation} 
+The theory constructed in this way is called the Yang-Mills theory.
+ 
+ The mentioned non-linearity of $F_{\mu \nu}$ results in the fact that cubic and quartic terms in $A_{\mu}$ are present in the Lagrangian. They describe self-interactions of the non-abelian gauge field. Thus already the free YM Lagrangian describes a non-trivial interacting field theory.
+ 
+ The action functional for the Yang-Mills theory:
+ \begin{equation}
+ S_{YM} = -\frac{1}{4e^2}\int d^4x F_{\mu \nu}^aF^{\mu \nu}_a.
+ \end{equation}
+ 
+ Then the equations of motion obtained from this action are:
+ \begin{equation}
+ \partial_\mu F^{\mu \nu} - e^2[A_\mu, F^{\mu\nu}]=0.
+ \end{equation}
+ Or
+ \begin{equation}
+ D_\mu F^{\mu\nu} = 0.
+ \end{equation}
+ 
+ In terms of generators $T^a$ the equation can be expressed as:
+ 
+  \begin{equation}
+ \partial_\mu F_{\mu \nu}^a - e^2f^a_{bc} A^b_\mu F^c_{\mu\nu}=0.
+ \end{equation}
+ 
+Note that in case of $G=U(1)$ gauge theory the structure constants are zero and the inhomogeneous Maxwell equations \eqref{Max1} and \eqref{MaxGen} without source ($J=0$) are recovered. 
+ 
+ Again, as in the abelian theory, we can define a dual tensor $\tilde{F}^{\mu\nu} = \frac{1}{2}\epsilon^{\mu\nu\lambda\delta}F_{\lambda\delta}$, dual to the field strength tensor $F_{\mu\nu}$ and construct the expression $D_{\mu}\tilde{F}^{\mu\nu} = \partial_{\mu} \tilde{F}^{\mu\nu} - e^2 [A_{\mu}, \tilde{F}^{\mu\nu}]$ which vanishes due to the antisymmetric properties of ${F}_{\lambda\delta}$ and $\epsilon^{\mu\nu\lambda\delta}$ tensors.
+ This provides another field equation also known as Bianchi identity:
+ \begin{equation}
+ D_{\mu}\tilde{F}^{\mu\nu} = 0.
+ \end{equation}
+ And again, in the abelian case the Bianchi identity reduces to the homogeneous Maxwell equations \eqref{Max2} or \eqref{MaxCov2}.
+
+ 
+ 
+ 
+ 
+%Its meaning is as follows. In ordinary derivation we compare the field at two points with infinitesimal separation. However, when we allow gauge transformations, there can be no reasonable comparison between two distinct points, as independent internal symmetry transformations happen locally. 
+
+\chapter{Mathematical Aspects}
+
+
+\section{Geometry of Gauge Symmetry}
+
+Gauge theories are geometric in character. Their natural mathematical description is the theory of principal bundles, connections on them and the curvatures of these connections. 
+
+\subsection{Geometry of Fiber Bundles}
+From physical point of view a gauge theory describes a particle subject to an independent symmetry transformation at each point of space-time. Let $N$ be a smooth n-dimensional manifold. This would be the space-time. On the other hand, for each point of space-time $N$ there exists an \lq\lq{}attached\rq\rq{} space representing the internal structure of the partical, space of its internal states. Geometrically such a construction can be modelled by a principal $G$-bundle. 
+
+\begin{defn}
+Let $G$ be a compact connected Lie group acting on the manifold $N$. A \textit{principal G-bundle} over $N$ is a structure consisting of the following ingredients:
+\[\begin{array}{lcl}
+&(i)& {\rm a \, manifold} \, N \, {\rm as \, a \, base \, space;} \\
+&(ii)& {\rm a \, total \, space} \, P; \\
+&(iii)& {\rm a \, surjective \, map} \, \pi: P \to N \, {\rm called \, projection};\\
+&(iv)& {\rm the \, structure \, group} \, G; \\
+&(v)&{\rm a \, fiber \, identical \, to \, the \, structure \, group} \, G \, {\rm and \, given \, by} \, G_p = \pi^{-1}(p) \, {\rm for \, a \, point} \, p\in N;\\
+&(vi)& {\rm the \, local \, trivialization} \, (\{U_i\}, \varphi_i) \, {\rm given \, by} \, \varphi_i: \pi^{-1}(U_i) \to U_i \times G, \\
+& & {\rm such \, that} \, \pi \circ \varphi^{-1}_i(p, g) = p, \,  {\rm where} \, \{U_i\} \, {\rm is \, an \, open \, cover \, of} \, N \, {\rm and} \, g \in G;\\
+&(vii)& {\rm transition \, functions} \, \, t_{ij}: U_i\cap U_j \to G, \, {\rm such \, that} \, t_{ij} = \varphi^{-1}_j\circ \phi_i \\
+& & {\rm and} \, \varphi^{-1}_i(p, g) = \varphi^{-1}_j(p, t_{ij}(p)g).\\
+\end{array}\]
+
+\end{defn}
+
+Locally it can be represented by the following diagram:
+ \[
+\begin{tikzcd}
+\pi^{-1}(U_i) \arrow{r}{\varphi_i} \arrow[swap]{d}{\pi} & U_i\times G \arrow{dl}{p_1} \\
+U_i
+\end{tikzcd}
+\]
+
+Over each point $p\in N$ there is a copy of the fiber $G_p$. For a trivial bundle $P = N\times G$ all the fibers $G_p$ can be identified to each other. In general case, when the bundle $P$ can not be represented as a direct product of the base space and the fiber, such an identification between fibers $G_p$ at different points is not possible. 
+
+\subsection{Connection}
+The geometric object corresponding to the gauge potential is the connection. In this subsection we will first give a more abstract mathematical definition of connection and then will provide for a more convenient one in terms of differential forms. For this discussion we follow closely \cite{Nakahara}.
+
+Let G be a compact Lie group, $P\to N$ be the principal G-bundle. Then for the tangent bundle $TP$ to the total space there is a well defined subbundle, the vertical bundle $VP\hookrightarrow TP$. In more detail,  to every element $\xi \in \mathfrak{g}$ we associate the fundamental vector field on $P$: $\xi^P \in \mathfrak{X}(P) \subset TP$. This vector field will be tangent to the fiber $G$ and thus $\xi^P \in VP$. The map $\mathfrak{g} \to VP$ is an isomorphism of vector spaces and this completes the construction of the space $VP \subset TP$. 
+
+\begin{defn}\label{hor}
+The connection on the principal G-bundle is the choice of a horizontal subbundle $HP \hookrightarrow TP$, which is an invariant compliment to $VP$ in $TP$, such that 
+\[\begin{array}{lcl}
+ &(i)  & TP = VP \oplus HP\\
+ & (ii) & H_{gu}P = g_*(H_uP), \, \,  u\in P, \,\, \,  g\in G,\\
+ & \,& g_* \, {\rm is \,  \, a  \, \, map \, \, induced \, \, by \, \,  the \, map} \, G \times P \to P.\\
+ 
+ \end{array}\]
+\end{defn}
+
+It is convenient to choose the horizontal subbundle as the kernel of some map. More precisely, a connection can be defined as a bundle projection map $\mathcal{A}: TP \to VP$, then $HP = {\rm ker}(\mathcal{A})$. 
+For practical computations this is achieved by introducing on $P$ a connection $\mathfrak{g}$-valued 1-form $\mathcal{A} \in \Omega^1(P,\mathfrak{g})$ 
+
+\begin{defn}\label{form}
+A connection $\mathfrak{g}$-valued 1-form $\mathcal{A} \in \Omega^1(P,\mathfrak{g})$ is a projection of $T_uP$ to the vertical subspace $V_uP \simeq \mathfrak{g}$, satisfying the following conditions:
+\[\begin{array}{lcl}
+&(i)& \imath_{\xi^P} \mathcal{A} = \xi \, \, \, \forall \xi \in \mathfrak{g},\\
+
+&(ii)& \mathcal{A} \, \, {\rm is \, \, G-equivariant, \, \, i. \, e.} \, \,  g^* \mathcal{A} = g \mathcal{A} g^{-1}, \, \, g \in G.
+\end{array}\]
+\end{defn}
+
+ Then the horizontal subspace is given by:
+%
+\begin{equation}
+H_uP \equiv \{X \in T_uP \, | \imath_X \mathcal{A} = 0\}.
+\end{equation}
+%
+
+\begin{prop}
+The definitions \ref{hor} and \ref{form} are equivalent.
+\end{prop}
+
+\begin{pr}
+
+$\Longrightarrow$ Let us consider the horizontal subbundle $HP \hookrightarrow TP$ given by definition \ref{hor}. 
+Let $\mathcal{A} \in \Omega(P, \mathfrak{g})$ be a $\mathfrak{g}$-valued 1-form on $P$, such that $\mathcal{A} (\xi^P) = \xi$ for any 
+$\xi \in \mathfrak{g}$ and  $\mathcal{A} (X) = 0$ for any $X \in HP$. Then by definition the condition (i) of definition \ref{form} is satisfied. 
+Let $X\in T_uP$ for $u\in P$. It can be represented by $X_u =X^H_u + X^V_u$ where $X^H_u \in H_uP$ and $X^V_u \in V_uP$. 
+The push-forward is $g_*X^H_u \in T_{gu}P$ and moreover $g_*X^H_u \in H_{gu}P$. Hence, by definition $\mathcal{A}(g_*X^H_u)= 0$.
+Then $(g^*\mathcal{A})_u(X^H_u + X^V_u) = \mathcal{A}_{gu}(g_*X^V_u)$. By isomorphism $\mathfrak{g} \simeq VP$ we know that $X^V_u$ is induced by some element $\xi \in \mathfrak{g}$. We denote it $X^V_u \equiv \xi^P_u$. Then $\mathcal{A}_{gu}(g_*X^V_u) =\mathcal{A}_{gu}(g_*\xi^P_u) = \mathcal{A}_{gu}\left( (g\xi g^{-1})^P_{gu}\right) = g\xi g^{-1}$. On the other hand, $g\mathcal{A}_u(X^H_u + X^V_u)g^{-1} = g\mathcal{A}_u(\xi^P_u)g^{-1} = g\xi g^{-1}$. Hence, $g^*\mathcal{A} = g\mathcal{A}g^{-1}$ which satisfies the condition (ii) of definition \ref{form}.
+
+
+
+$\Longleftarrow$ 
+Let $\mathcal{A} \in \Omega(P, \mathfrak{g})$ be a 1-form given by definiion\ref{hor} and let the horizontal subspace be defined as $H_uP \equiv \{X \in T_uP \, | \imath_X \mathcal{A} = 0\}$. By definition $\mathcal{A}: TP \to \mathfrak{g}$ and $\mathcal{A}: VP \to \mathfrak{g}$ meaning that $VP = {\rm im}(\mathcal{A})$ and $HP = {\rm ker}(\mathcal{A})$. We know that ${\rm rank}(\mathcal{A}) = {\rm dim} (\mathfrak{g})$ and ${\rm rank}(\mathcal{A}) = {\rm dim} (TP) - {\rm dim} (\mathfrak{g})$. By isomorphism $\mathfrak{g} \simeq VP$ we get ${\rm dim} (TP) = {\rm dim} (HP) + {\rm dim} (VP)$ indicating that $VP$ and $HP$ cover the whole $TP$. Next, let us take $X \in VP$ such that $\mathcal{A}(X) = 0$. It follows that $X\in HP$. For $X \in VP$  there exists $\xi \in \mathfrak{g}$ such that $\mathcal{A}(X) = \xi$. This means that $X$ is induced by $\xi = 0$. The conditions $X \in VP$ and $X\in HP$ can be simultaneously satisfied if and only if $X = 0$. All that corresponds to the condition (i) of definition \ref{hor}. 
+
+Now let us take $X\in H_uP$ and construct $g_*(X)\in T_{gu}P$. Then we have:
+$$
+\imath_{g_*X}\mathcal{A} = \mathcal{A}(g_*X) = g^*\mathcal{A}(X) = g \mathcal{A} g^{-1} (X) = g \mathcal{A} (X) g^{-1}= 0, \, \, \, \Longrightarrow g_*X\in H_{gu}P
+$$
+meaning that for every vector in the horizontal bundle its image under the map $g_*$ will also be in the same horizontal bundle. Recall that the map $g_*$ is invertible and linear, such that any vector $Y\in H_{gu}P$ is expressed as $Y= g_*X$ for some vector $X\in H_uP$. This is exactly the condition (ii) of definition \ref{hor}.
+
+$\Box$
+\end{pr}
+
+
+A connection 1-form can be defined locally on the base manifold $N$. Let $\{U_i\}$ be an open cover of $N$ and $\sigma_i: U_i \to \pi^{-1}(U_i)$ be a local section for each $U_i$. Then we can define a $\mathfrak{g}$-valued 1-form $A_i$ on each $U_i$:
+\begin{equation}\label{local form}
+A_i = \sigma_i^*\mathcal{A} \in \Omega^1(U_i, \mathfrak{g}).
+\end{equation}
+Note that if the principal G-bundle is trivial, there exists a global section $\sigma: N \to P$ and the connection 1-form on the base manifold is given globally by $A = \sigma^*\mathcal{A} \in \Omega^1(N, \mathfrak{g})$.
+
+For a non-trivial bundle on the intersections $U_i\cap U_j$ the local forms agree in the following way:
+
+ \begin{equation}
+ A_j = t_{ij}A_it_{ij}^{-1} - dt_{ij}t_{ij}^{-1},
+ \end{equation}
+ where $t_{ij}: U_i \cap U_j \to G$ are the transition functions.
+ 
+ Hence, if we know a local section $\sigma_i$ and a $\mathfrak{g}$-valued 1-form $A_i$ on each $U_i$ we can define a global connection 1-form $\mathcal{A} \in \Omega^1(P, \mathfrak{g})$ on the bundle, such that $A_i = \sigma_i^*\mathcal{A}$, by the formula
+ 
+ \begin{equation}\label{CGT}
+\mathcal{A}|_{\pi^{-1}(U_i)} = g_i\pi^*A_ig_i^{-1} - dg_i g_i^{-1},
+\end{equation}
+where $d$ is the exterior differentiation on P and $g_i$ is the local trivialization defined by  $\varphi_i(u) = (p, g_i)$ for $u=g_i\sigma_i(p)$ and $\varphi_i: P \to U_i\times G$.
+
+ In this formula we recognize the gauge transformation for the Yang-Mills potential \eqref{YMGT}. And the local 1-forms $A_i = \sigma_i^*\mathcal{A}$ on the base manifold are identified with the gauge potential. 
+
+
+\subsection{Curvature}
+
+The presence of a gauge field (connection) results in a particular \lq\lq{}distortion\rq\rq{} of the total space. The degree of this distortion indicates how strong is the gauge field and the measure for this distortion is called \textit{curvature} in geometry (or the \textit{field strength} in physics). 
+
+The purpose of this subsection is to describe the notion of curvature on a principal G-bundle. For that we first need to define the operator called \textit{covariant derivative}. 
+This operator is induced by the connection on the principal G-bundle in the following way. Recall that a \textit{horizontal} n-form with values in the Lie algebra $\omega\in \Omega^n(P,\mathfrak{g})$ is a form satisfying the condition $\imath_{\xi_P} \omega = 0$ for $\xi \in \mathfrak{g}$ and the fundamental vector field $\xi_P \in VP$. 
+
+Then the connection gives rise to an equivariant projection operator $P^h_{\mathcal{A}}: \Omega^n(P,\mathfrak{g}) \to \Omega^n_{hor}(P,\mathfrak{g})$. And the covariant derivative is the following composition:
+\begin{equation}
+d_{\mathcal{A}} = P^h_{\mathcal{A}}\circ d : \Omega^n(P,\mathfrak{g}) \to \Omega^{n+1}_{hor}(P,\mathfrak{g}).
+\end{equation}
+
+
+\begin{defn}
+Let $\mathcal{A} \in \Omega^1(P,\mathfrak{g})$ be a connection 1-form on the principal G-bundle $P\to N$. The curvature of the connection is the $\mathfrak{g}$-valued 2-form $\mathcal{F}_{\mathcal{A}}\in \Omega^2(P,\mathfrak{g})$ given by the covariant derivative of the connection:
+$$\mathcal{F}_{\mathcal{A}} = d_{\mathcal{A}a} \mathcal{A}.$$
+\end{defn}
+This 2-form is horizontal by definition (the covariant derivative maps the forms into the horizontal subspace). Taking the curvature 2-form on two vector fields $X, Y \in TP$ it is easy to show that $\mathcal{F}_{\mathcal{A}}$ is equivariant:
+%
+\begin{equation}
+\begin{array}{lcl}
+g^*\mathcal{F}_{\mathcal{A}}(X,Y)& = & \mathcal{F}_{\mathcal{A}}(g_*X, g_*Y) = d\mathcal{A} (g_*X^H, g_*Y^H) = d g^*\mathcal{A} (X^H, Y^H) =    \\
+&=& d(g\mathcal{A} (X^H, Y^H) g^{-1}) = g(d\mathcal{A} (X^H, Y^H)) g^{-1})\\
+&=& g\mathcal{F}_{\mathcal{A}}(X,Y)g^{-1},
+\end{array}
+\end{equation}
+where we used the fact that the map $g_*$ preserves the horizontal subspaces and commutes with the differential, i.e. $(g_*X)^H=g_*X^H$ and $d g^* = g^*d$. 
+
+For practical computations it is useful to introduces the explicit expression for the covariant derivative operator action on the connection
+\begin{equation}
+d_\mathcal{A} \mathcal{A} = d\mathcal{A} +\frac{1}{2}[\mathcal{A}, \mathcal{A}]
+\end{equation}
+ and thus define the $\mathcal{F}_{\mathcal{A}}$ explicitly in terms of $\mathcal{A}$ and its ordinary differential:
+\begin{equation}
+\mathcal{F}_{\mathcal{A}} = d\mathcal{A} +\frac{1}{2}[\mathcal{A}, \mathcal{A}].
+\end{equation}
+
+The form $d\mathcal{A} +\frac{1}{2}[\mathcal{A}, \mathcal{A}]\in \Omega^2(P,\mathfrak{g})$ is horizontal. This can be seen by contracting it with some horizontal vector field $\xi_P$:
+$$\imath_{\xi_P}(d\mathcal{A} +\frac{1}{2}[\mathcal{A}, \mathcal{A}]) = \mathcal{L}_{\xi_P}\mathcal{A} - [\mathcal{A}, \imath_{\xi_P}\mathcal{A}]= [\alpha, \xi]-[\alpha, \xi]=0.$$
+On the other hand, its Lie derivative satisfies the condition $\mathcal{L}_{\xi_P}\mathcal{F}_{\alpha} = [\mathcal{F}_{\alpha},\xi]$:
+
+
+\begin{spacing}{1.45}
+$\begin{array}{lcl}
+\mathcal{L}_{\xi_P}(d\mathcal{A} +\frac{1}{2}[\mathcal{A}, \mathcal{A}]) &=& (d\imath_{\xi_P} + \imath_{\xi_P}d)(d\mathcal{A}a +\frac{1}{2}[\mathcal{A}, \mathcal{A}]) \\
+&=& \frac{1}{2}\imath_{\xi_P}d[\mathcal{A}, \mathcal{A}] + d\imath_{\xi_P}d\mathcal{A} + \frac{1}{2}d\imath_{\xi_P}[\mathcal{A}, \mathcal{A}]\\
+&=& [\imath_{\xi_P}d\mathcal{A}, \mathcal{A}] +[d\mathcal{A}, \imath_{\xi_P}\mathcal{A}] + d\mathcal{L}_{\xi_P}\mathcal{A} +[d\imath_{\xi_P}\mathcal{A}, \mathcal{A}] + [\imath_{\xi_P}\mathcal{A}, d\mathcal{A}]\\
+&=& [\mathcal{L}_{\xi_P}\mathcal{A}, \mathcal{A}] + [d\mathcal{A}, \xi] + d\mathcal{L}_{\xi_P}\mathcal{A} + [\xi, d\mathcal{A}]\\
+&=& [[\mathcal{A},\xi], \mathcal{A}] + d [\mathcal{A}, \xi] = [\frac{1}{2}[\mathcal{A}a, \mathcal{A}], \xi] + [d\mathcal{A}a, \xi] \\
+&=& [d\mathcal{A}a + \frac{1}{2}[\mathcal{A}, \mathcal{A}], \xi].
+ 
+ \end{array}$
+ \end{spacing}
+
+
+Now we can put the \lq\lq{}distortion\rq\rq{} measured by curvature into concrete geometric terms. 
+One possible interpretation is that curvature measures the quantity by which the Lie bracket of horizontal vector fields fails to be horizontal. 
+\begin{prop}
+If $X,Y\in HP$ are horizontal vector fields on $P$, then 
+$\mathcal{A} ([X,Y]) = - \mathcal{F}_{\mathcal{A}}(X,Y)$.
+\end{prop}
+
+\begin{pr}
+Recall that $\mathcal{A}a$ vanishes on horizontal vectors, then
+$$ 
+\mathcal{F}_{\mathcal{A}}(X,Y) = d \mathcal{A}a (X^H,Y^H) = d \mathcal{A} (X,Y) = X\mathcal{A}(Y) - Y\mathcal{A}(X) - \mathcal{A} ([X,Y]) = - \mathcal{A} ([X,Y]).$$
+\end{pr}
+
+Another possible interpretation is that curvature measures for how much the covariant differential fails to be a true differential.\footnote{The exterior differential satisfies the property $d^2 = 0$.}
+\begin{prop}
+For $\omega \in \Omega^n(P,\mathfrak{g})$, $(d_\mathcal{A})^2\omega = [\mathcal{F}_{\mathcal{A}}, \omega]$.
+\end{prop}
+
+\begin{pr}
+See \cite{Meinrenken} 
+%$$ (d_\mathcal{A})^2\omega = (d + [\mathcal{A}, \cdot \,  ])^2\omega = d[\mathcal{A},\omega] + [\mathcal{A}, d\omega] +[\frac{1}{2}[\mathcal{A},\mathcal{A}a], \omega] = [d\mathcal{A} + \frac{1}{2}[\mathcal{A},\mathcal{A}], \omega] = [\mathcal{F}_{\mathcal{A}}, \mathcal{A}].$$
+\end{pr}
+
+The curvature is covariantly constant. This important property is called \textbf{the Bianchi identity}:
+\begin{equation}\label{Bia}
+d_\mathcal{A} \mathcal{F}_{\mathcal{A}} = 0.
+\end{equation}
+The identity is easily verified:
+$$ d_\mathcal{A} \mathcal{F}_{\mathcal{A}} =d \mathcal{F}_{\mathcal{A}} +[\mathcal{A}, \mathcal{F}_{\mathcal{A}}] = \frac{1}{2}d[\mathcal{A},\mathcal{A}] + [\mathcal{A},d\mathcal{A}] + \frac{1}{2}[[\mathcal{A},\mathcal{A}], \mathcal{A}] = 0,$$
+as the first two terms cancel each other and the last one vanishes by the Jacobi identity for $\mathfrak{g}$. 
+In the Bianchi identity \eqref{Bia} we recognize one of the equations of motion for the Yang-Mills theory. 
+
+The curvature 2-form can be defined locally on the base manifold $N$. Let $\{U_i\}$ be an open cover of $N$ and $\sigma_i: U_i \to \pi^{-1}(U_i)$ be a local section for each $U_i$. Then we can define a $\mathfrak{g}$-valued 2-form $F_i$ on each $U_i$:
+\begin{equation}\label{local F}
+F_i = \sigma_i^*\mathcal{F}_\mathcal{A} \in \Omega^2(U_i, \mathfrak{g}).
+\end{equation}
+Note again that if the principal G-bundle is trivial, there exists a global section $\sigma: N \to P$ and the curvature 2-form on the base manifold is given globally by $F = \sigma^*\mathcal{F}_\mathcal{A} \in \Omega^2(N, \mathfrak{g})$.
+
+In terms of local potential we find:
+$$ 
+F = \sigma^*\mathcal{F}_\mathcal{A} = \sigma^*(d\mathcal{A} +\frac{1}{2}[\mathcal{A}, \mathcal{A}]) = d\sigma^*\mathcal{A} +\frac{1}{2}[\sigma^*\mathcal{A}, \sigma^*\mathcal{A}] = dA + \frac{1}{2}[A, A].$$
+This form is identified with the Yang-Mills field strength.
+
+Note that on the overlapping $U_i\cap U_j$ the local curvature forms should satisfy the compatibility condition:
+$$F_i = t_{ij}F_jt_{ij}^{-1},$$
+where the $t_{ij}$ are the transition functions. This condition corresponds to the  gauge transformation for the Yang-Mills field strength. 
+
+
+\subsection{Geometric description of YM}\label{GYM}
+
+Let $G$ be a compact connected Lie group, $\mathfrak{g}={\rm Lie}(G)$ its Lie algebra, and  ${\rm Tr}$ an invariant scalar product on $\mathfrak{g}$. Consider a 4-manifold $N$ and let $P$ be a principal $G$-bundle $P \to N$.  A connection $\mathcal{A}$ is given by a $\mathfrak{g}$-valued 1-form on $P$. The curvature of the connection $\mathcal{A}$ is a $\mathfrak{g}$-valued 2-form on $P$ given by the formula $\mathcal{F}_{\mathcal{A}} = d\mathcal{A} +\frac{1}{2}[\mathcal{A}, \mathcal{A}]$.
+
+
+
+Assuming that $P\to N$ is a trivial bundle, we can choose a section
+$\sigma: N \to P$ and define the gauge field $A= \sigma^*\mathcal{A}$ on $N$. Changing a section is equivalent to a gauge transformation of
+the gauge field $A$: 
+%
+\begin{equation}\label{gauge}
+A \mapsto A^g= gAg^{-1} - dg g^{-1}
+\end{equation}
+for $g: N \to G$.
+
+Then the curvature 2-form on the manifold $N$ is defined by $F_A= \sigma^*\mathcal{F}_{\mathcal{A}} =dA + \frac{1}{2} [A,A]$. It gauge transforms as $F_A \mapsto F_A^g= gF_Ag^{-1}$.
+
+
+Now we can formulate the Yang-Mills action:
+\begin{equation}
+S_{YM}(A)  = \frac{1}{4 e^2} \int_N {\rm Tr} F_A \wedge \ast F_A,
+\end{equation}
+where $e^2$ is the gauge coupling constant and $\ast F_A$ is the Hodge dual of the curvature. Note that the quantity ${\rm Tr} F_A \wedge \ast F_A$ is invariant under the gauge transformation \eqref{gauge}.
+
+ The variation of the action with respect to the gauge potential $A$ yields the equation of motion: 
+ \begin{equation}
+ d_A\ast F_A = d\ast F_A + [A,\ast F_A] = 0.
+ \end{equation}
+ 
+Another field equation is provided by the Bianchi identity \eqref{Bia}. It is automatically satisfied being just a geometric consequence of the definition of the curvature:
+\begin{equation}
+d_AF_A = d F_A + [A, F_A] = 0.
+\end{equation}
+
+
+
+
+
+\subsection{Chern-Simons Theory}\label{CST}
+
+The Chern-Simons theory is a topological field theory and a gauge theory in 3 dimensions. 
+
+Recall the construction of the gauge theory in 4 dimensions in Section \ref{GYM}. We consider again a compact connected Lie group $G$ with its Lie algebra $\mathfrak{g}={\rm Lie}(G)$ and a principal $G$-bundle $P \to N$. The 4-manifold $N$ this time has a boundary $\partial N = M$.  A connection $\mathcal{A}$ is a $\mathfrak{g}$-valued 1-form on $P$.
+
+The polynomial in $\mathcal{A}$  
+%
+\begin{equation}
+{\rm Tr} \, F_{\mathcal{A}}^2 = {\rm Tr} \left( d\mathcal{A} + \mathcal{A}^2 \right)^2
+\end{equation}
+is a basic differential form on $P$. Basic means horizontal and G-invariant. Recall that the space of basic differential forms on the bundle is isomorphic to the space of differential forms on the base manifolds by the pull-back of the bundle projection: $\pi^*: \Omega^n(N) \to \Omega^n_{basic}(P)$. Hence, the density ${\rm Tr} \, F_{\mathcal{A}}^2$ is a pull-back of a differential form on the base manifold $N$. The cohomology class of this differential form is the second Chern class of the bundle $P$. When $N$ is closed, one can define  the second Chern number 
+%
+\begin{equation}
+c_2(P) = \frac{1}{4\pi^2} \int_N {\rm Tr} \, F_{\mathcal{A}}^2 \in \mathbb{Z}
+\end{equation}
+which is an integral topological invariant of $P$.
+
+
+In general, the closed 4-form ${\rm Tr} \, F_{\mathcal{A}}^2$  belongs to a non-trivial cohomology class on $N$. Its pull-back to $P$ is exact with primitive
+%
+\begin{equation}\label{CS}
+{\rm Tr} \, F_{\mathcal{A}}^2 = d \, {\rm CS}(\mathcal{A})
+\end{equation}
+given by a 3-form, known as the Chern-Simons form, 
+%
+\begin{equation}   
+{\rm CS}(A)= {\rm Tr} \left( d\mathcal{A}\mathcal{A} + \frac{2}{3} \mathcal{A}^3 \right).
+\end{equation}
+
+Assuming again that $P\to N$ is a trivial bundle, we choose a section
+$\sigma: N \to P$ to define the gauge field $A= \sigma^*\mathcal{A}$ on $N$. A gauge transformation of the connection $A$ is given by the equation \eqref{gauge}:
+
+Taking a pull-back under $\sigma$ of equation \eqref{CS}, we obtain
+%
+\begin{equation} \label{dCS}
+{\rm Tr} \, F_A^2 = d \, {\rm CS}(A),
+\end{equation}
+where $F_A=dA + \frac{1}{2} [A,A]$ and $CS(A)={\rm Tr} \left( dAA + \frac{2}{3} A^3 \right)$.
+We can now define the Chern-Simons action on $M= \partial N$
+%
+\begin{equation}\label{CSA}
+S_{CS} (A) = \int_M {\rm CS}(A).
+\end{equation}
+This functional is not gauge invariant. Instead, it behaves under gauge transformations in the following way:
+%
+$$
+S_{CS}(A^g)=S_{CS}(A) + \frac{1}{3} \, \int_M {\rm Tr}(dgg^{-1})^3.
+$$
+
+The equation \eqref{dCS} gives rise to the Stokes formula:
+%
+\begin{equation}\label{BB1}
+\int_N \, {\rm Tr} \, F_A^2 = \int_M \, {\rm CS}(A).
+\end{equation}
+Note that the left hand side is gauge invariant while the right hand side is not. The explanation is as follows: let $g: N \to G$ be a gauge transformation defined on $N$. Then, the integral over $M$
+%
+$$
+\int_M {\rm Tr}(dgg^{-1})^3 = 0
+$$
+vanishes. For arbitrary gauge transformations $g: M \to G$ we have
+%
+$$
+\int_M {\rm Tr}(dgg^{-1})^3 \in 48 \pi^2 \mathbb{Z}.
+$$
+This implies that the expression
+%
+$$
+\exp\left(i \frac{k}{8\pi} \, S_{CS}(A)\right)
+$$
+is gauge invariant and independent of the choice of the section $s$ for $k \in \mathbb{Z}$.
+
+The equation of motion obtained by variation of the action \eqref{CSA} with respect to potential $A$ is:
+\begin{equation} 
+F_A=0,
+\end{equation}
+meaning that the curvature $F_A$ vanishes everywhere. That\rq{}s why the solutions for the Chern-Simons theory are called flat connections. 
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Equivariant Cohomology}
+
+\subsection{Borel model}
+
+The equivariant cohomology appears when one is interested in the properties of manifolds (or topological spaces) with a group action $G\times M\to M$. 
+
+When the group $G$ acts freely on a manifold $M$ the orbit of this action $M/G$ is also a manifold. Free $G$ action means that for $g\in G$  and $a\in M$ $ga = a$ only if $g=id_G$. Then the cohomology of such an orbit manifold $H^*(M/G)$ is a nice object (and it will coinside with the equivariant cohomology of M). 
+
+However, if G-action on $M$ is not free the orbit space $M/G$ is usually singular. But still useful information can be obtained by constructing out of  $G\acts M$ the \textit{homotopy quotient} (also called \textit{Borel construction}) and its cohomology will provide an efficient replacement for the cohomology of the space $M/G$. 
+
+The idea of the Borel construction is to replace $M$ with some manifold $\tilde{M}$ on which the group $G$ acts freely and which is homotopically equivalent to the original manifold $M$. 
+One can always find a contractible manifold $EG$ on which G acts freely. Then the product $M\times EG=\tilde{M} \simeq M$ is homotopically equivalent to $M$ and $G$ acts on it freely.
+
+The contractible manifold $EG$ in its turn is an important example of a principal G-bundle: $EG\to BG=EG/G$ called the classifying bundle for $G$. 
+
+%\begin{defn}
+%A \textit{classifying bundle} for $G$ is a principal G-bundle $EG\to BG$, such that for any principal G-bundle $P\to M$ there is a unique (up to a homotopy) map $\sigma : M\to BG$, with the property that $P$ is isomorphic to the pull-back bundle $\sigma^*EG$. $\sigma$ is called a classifying map of the principal G-bundle.
+%\end{defn}
+
+Now let $M \times EG \to (M \times EG)/G$ be a principle G-bundle. Then its base manifold $(M \times EG)/G$ would be precisely  the \textit{homotopy quotient}. 
+
+ \begin{defn}
+The equivariant cohomology on $M$ is the ordinary cohomology on $(M\times EG)/G$:
+$H^*_G(M) = H^*((M\times EG)/G)$.
+\end{defn}
+
+
+
+\subsection{The Weil model of equivariant cohomology}
+
+There exists an alternative way of defining the equivariant cohomology groups on a differential manifold. 
+
+\begin{thm}\label{Weil}
+Let $A$ be a graded superalgebra equipped with a representation of some Lie supergroup $\mathcal{G}$. Then the equivariant cohomology on a smooth manifold $M$ is given by
+\begin{equation}
+H^*_G(M) = H^*\left( (\Omega^*(M)\otimes A)_{basic}, d\right), 
+\end{equation}
+where $d$ is the de Rham differential on $\Omega^*(M)$. $A$ provides an algebraic analog for the classifying space $EG$ and this definition of equivariant cohomology of $M$ is independent of $A$.
+\end{thm}
+\begin{pr}
+See \cite{Super}
+\end{pr}
+
+$A$ provides an algebraic analog for the classifying space $EG$.
+In this section we consider the Weil model of equivariant cohomology constructed according to the theorem \ref{Weil}.
+
+Let $M$ be a smooth  manifold, $G$ be a compact connected Lie group acting on $M$ and $\mathfrak{g}$ be the Lie algebra of $G$. 
+To every $\xi \in \mathfrak{g}$ we associate the fundamental vector field $\xi_M \in \mathfrak{X}(M)$.
+
+
+The de Rham differential $d$, contractions $\imath_\xi^M$ and Lie derivatives $L_\xi^M$ act on the space of differential forms $\Omega^*(M)$, and satisfy the relations
+%
+$$
+[\imath_\xi^M, \imath_\eta^M] =0, [L_\xi^M, \imath_\eta^M] = \imath_{[\xi, \eta]}^M, [L_\xi^M, L_\eta^M]=L_{[\xi, \eta]}^M,
+[d, \imath_{\xi}^M] =L_{\xi}^M, [d, L_{\xi}^M]=0, [d,d]=0,
+$$
+where $[-,-]$ stands for a supercommutator.
+
+Together, they form a Lie superalgebra  $\mathcal{G}$.  One natural class of representations of $\mathcal{G}$ are spaces of differential forms $\Omega^*(M)$. Another representation is the Weil algebra:
+%
+\begin{equation}
+W_G:= S{\mathfrak{g}^*} \otimes \wedge {\mathfrak{g}^*},
+\end{equation}
+which is constructed by taking the product of the symmetric and exterior algebras of the dual space to $\mathfrak{g}$.
+The Weil algebra is graded  by assigning degree 2 to generators of $S\mathfrak{g}^*$ and degree 1 to generators of $\wedge \mathfrak{g}^*$,
+%
+\begin{equation}
+W^l_G = \oplus_{j+2k=l} S^k {\mathfrak{g}^*} \otimes \wedge^j \mathfrak{g}^*.
+\end{equation}
+
+The Weil algebra $W_G$ is the algebraic analogue of the classifying bundle $EG$. 
+
+It is convenient to introduce elements $a, f \in W_G \otimes \mathfrak{g}$ constructed as follows: $a$ is a element in $\wedge^1 \mathfrak{g}^* \otimes \mathfrak{g}$ defined by the canonical pairing between $\mathfrak{g}$ and $\mathfrak{g}^*$. Similarly, $f \in S^1\mathfrak{g}^* \otimes \mathfrak{g}$.
+
+%Then $W_G$ can be viewed as a model of the space EG with $a$ correponding to a 1-form and $f$ to a 2-form. And the product $\Omega^*(M) \otimes W_G$ of the space of differential forms on $M$ and of the Weil algebra is then naturally interpreted as $\Omega^*(M \times EG)$.
+The superalgebra $\mathcal{G}$ acts on $W_G$ as follows:
+
+%
+\begin{equation} \label{dadf}
+da = f - \frac{1}{2}[a, a], \  \ df = [f, a].
+\end{equation}
+
+\begin{equation}
+\imath_\xi^W a = \xi, \  \  \imath_\xi^W f = 0.
+\end{equation}
+
+\begin{equation}
+L_{\xi}^W f = [f, \xi], \,   \,   L_{\xi}^W a = [a, \xi].
+\end{equation}
+One can think of $a$ as a universal connection on a principal $G$-bundle. Then,  the first formula in \eqref{dadf} gives the standard definition of the curvature and the second one is the Bianchi identity. 
+
+As representations of $\mathcal{G}$ are carried by both $\Omega^*(M)$ and $W_G$ the diagonal action on the tensor product can be defined.
+Thus $d$, $\imath_\xi$, $L_\xi$ act on $\Omega^*(M) \otimes W_G$ as follows:
+
+%
+\begin{equation}
+\begin{split}
+L_{\xi} = L_{\xi}^M \otimes 1 + 1 \otimes L_{\xi}^W, \\
+\imath_{\xi} = \imath_{\xi}^M \otimes 1 + 1 \otimes \imath_{\xi}^W, \\
+d = d \otimes 1 + 1 \otimes d.
+\end{split}
+\end{equation}
+
+The space $\Omega^*_G (M)$ of equivariant forms on $M$  is then defined as the basic part of $\Omega^*(M) \otimes W_G$:
+
+%
+$$ \Omega^*_G (M) :=\{ \alpha \in \Omega^*(M) \otimes W_G | L_{\xi} \alpha = 0, \imath_\xi \alpha = 0 \}. $$
+
+%In other words, $\Omega^*_G (M)$ is the space of basic forms on the principal $G$-bundle $M \times EG \to (M \times EG)/G$. They can be obtained as pull-backs of differential forms on the quotient space $(M \times EG)/G$.
+And the Weil model of equivariant cohomology on $M$ is defined as:
+\begin{equation}
+H^*_G(M)  = H^*( \Omega_G ^* (M), d\otimes 1 + 1\otimes d).
+\end{equation}
+
+
+\section{Geometry of coadjoint orbits}
+
+\subsection{Symplectic and Poisson manifolds}
+
+\begin{defn}
+ A \textit{symplectic manifold} is a pair $(M,\omega)$ where $M^{2n}$ is an even-dimensional smooth manifold endowed with a \textit{symplectic structure} $\omega \in \Omega^2(M)$, a closed non-degenerate differential 2-form:
+ $$ d^2\omega = 0 \, \, {\rm and} \, \, \forall p\in M, \, \, \forall X \ne 0 \, \, \exists Y \, {\rm s. t.} \,\, \omega(X,Y)\ne 0, \, \,  X, Y\in T_pM $$
+ \end{defn}
+ 
+ In local coordinates the symplectic form can be represented as $\omega = \omega_{ij}(x) dx^idx^j$ with $(\omega_{ij}(x))$ antisymmetric non-degenerate matrix. Thus a symplectic manifold is always even-dimensional, such matrices don\rq{}t exist in odd dimensions. 
+ 
+ Non-degeneracy implies the existance of the isomorphism between the tangent and cotangent bundles over $M$: $\omega: TM \to T^*M$ with the inverse $\pi = \omega^{-1}$.
+ The bijection between vector fields and 1-forms on $M$ is given by:
+ \begin{equation}
+ \imath_\xi \omega = \theta,
+ \end{equation}
+ where $\xi\in\mathcal{X}(M)$ is a vector field and $\theta \in\Omega^1(M)$ is a 1-form on $M$.
+ In local coordinates it can be represented as $\langle \omega_{ij}dx^idx^j, \xi^i\frac{\partial}{\partial x^i} \rangle = \omega_{ij}\xi^idx^j = \theta_jdx^j$.
+ In case when the 1-one form is closed and given by $\theta = dH$ for a differentiable function $H\in C^{\infty}(M)$, the vector field $\xi_H\in\mathcal{X}(M)$ is called Hamiltonian. 
+ 
+Then to each differentiable function $f \in C^\infty(M)$ we can assign a vector field in the following way:
+\begin{equation}
+\omega(X_H, Y) = dH(Y), \, \, H\in C^\infty(M), \, \, \, X \in \mathcal{X}_{Ham}(M), \,\, Y \in \mathcal{X}(M)
+\end{equation}
+
+This leads to defining a binary operation called \textit{Poisson bracket} on the vector space of differentiable functions on $M$. 
+
+\begin{defn}
+The \textit{Poisson bracket} $\{\cdot, \cdot \}: C^\infty(M)\times C^\infty(M) \to C^\infty(M)$ on a symplectic manifold $(M,\omega)$ is a bilinear map on the space of differentiable functions $C^\infty(M)$ given by 
+\begin{equation}
+\{ f, g \} = \omega(X_f, X_g)
+\end{equation}
+for $f, g \in C^\infty(M)$. By definition the bracket satisfies the following properties:
+\[\begin{array}{lcl}
+ &\bullet& \{ f, g \} = \omega(X_f, X_g) = -\omega(X_g, X_f) = -\{ g, f \} \, \, \, \,\, {\rm (antisymmetry)},\\
+ &\bullet& \{ f, \{g,h\} \} + \{ g, \{h,f\} \} + \{ h, \{f,g\} \} = 0 \,\,\,\,\, \,\,\, \, \, \,  \, \, \, \, \, \, {\rm (Jacobi \, \, identity)},\\
+ &\bullet& \{ fg, h \} = f \{ g, h \} + g\{ f, h \}  \, \, \, \, \, \, \,\,\, \, \,  \, \, \, \, \, \, \, \,  \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \, \,  \, \, \, \,{\rm (Leibnitz \, \, rule)}.\\
+\end{array}\]
+\end{defn}
+
+The first two conditions mean that the Poisson bracket defines a Lie bracket on the space $C^\infty(M)$. 
+The formula for the bracket can be written just in terms of functions and Hamiltonian vector fields on $M$:
+$$
+\{ f, g \} = \omega(X_f, X_g) = df(X_g) = \imath_{X_g}df = \mathcal{L}_{X_g}f = - \mathcal{L}_{X_f}g.
+$$
+A manifold together with the Poisson bracket is a Poisson manifold.
+
+Recall that the inverse of the symplectic 2-form $\omega$ is a bi-vector defining a map $\pi: TM \to T^*M$. In local coordinates it can be expressed as $\pi = \pi^{ij}\frac{\partial}{\partial x^i}\frac{\partial}{\partial x^j}$.
+ 
+ 
+ \begin{thm}
+ The bivector $\pi=\omega^{-1}$ is Poisson and it defines the bracket $\{ f, g \} = \pi (df \wedge dg).$
+ \end{thm}
+ 
+ Thus every symplectic manifold $(M,\omega)$ is also a Poisson manifold. However, the converse is not always true: for a given Poisson manifold $(M,\pi)$ the map $\pi: TM \to T^*M$ is not invertible in general and it is not possible to define $\pi^{-1} = \omega$. 
+ Neverthless $(M,\pi)$ can be represented as a disjoint uninon of smooth even-dimensional submanifolds which are called \textit{symplectic leaves}. On each symplectic leaf $\Sigma$ the map $\pi: T\Sigma \to T^*\Sigma$ is a bijection. Consequently, on every leaf there exists a differential 2-form $\omega = \pi^{-1}\in \Omega^2(\Sigma)$ such that $\omega(X_f, X_g) = \{ f, g \}$. The form $\omega = \in \Omega^2(\Sigma)$ is closed and non-degenerate, hence it defines a symplectic structure on $(\Sigma, \omega)$. 
+ 
+ 
+
+ 
+ 
+ \subsection{Coadjoint Orbits as Symplectic Manifolds}
+ 
+ Assume that $G$ is a matrix Lie group. The adjoint representation $g\mapsto Ad(g)$ defines the the action of $G$ on its Lie algebra $\mathfrak{g}$ which is given by matrix conjugation: $Ad(g) = g\xi g^{-1}$ for $g\in G$ and $\xi \in \mathfrak{g}$.
+ 
+ The dual to the adjoint representation is the \textit{coadjoint} representation: $Ad^*(g) = Ad(g^{-1})^*$. This is the action of the group $G$ on the dual of its Lie algebra $\mathfrak{g}^*$. By definition
+ \begin{equation}
+ \langle Ad(g^{-1})^* \lambda, \xi \rangle = \langle \lambda, Ad(g^{-1})\xi \rangle,
+ \end{equation} 
+ where $g\in G$, $\xi \in \mathfrak{g}$, $\lambda \in \mathfrak{g}^*$ and $\langle \cdot , \cdot \rangle$ is the canonical pairing between $\mathfrak{g}$ and $\mathfrak{g}^*$. 
+ Recall that for a semisimple Lie group the algebra $\mathfrak{g}$ and its dual are isomorphic: $\mathfrak{g} \simeq \mathfrak{g}^*$, hence the coadgoint action can be identified with the adjoint and denoted by 
+ \begin{equation}
+ Ad(g^{-1})^* \lambda = g^{-1}\lambda g
+ \end{equation}
+  for $\lambda \in \mathfrak{g}^*$ and $g \in G$. 
+ 
+ \begin{defn}
+ A \textit{coadjoint orbit} (or an orbit of the $G$ action on $\mathfrak{g}^*$) is the set of elements of $\mathfrak{g}^*$:
+ \begin{equation}
+ \mathcal{O}_\lambda = \{g^{-1}\lambda g| \lambda \in \mathfrak{g}^*, g \in G\}.
+ \end{equation}
+ \end{defn}
+ 
+ There exists a beautiful geometric description of the coadjoint orbits due to Kirillov-Kostant-Souriau. 
+ 
+ Recall that the Lie algebra generators satisfy the condition $[T^a, T^b] = f^{ab}_c T^c$. The generators can be associated with the coordinate functions on $\mathfrak{g}^*$. Then one can construct the following bivector field on $\mathfrak{g}^*$:
+ \begin{equation}\label{Poisson}
+ \pi = f_{ab}^cT_c\frac{\partial}{\partial T_a}\frac{\partial}{\partial T_b}.
+ \end{equation}
+ 
+ The bivector \eqref{Poisson} defines the Poisson bracket on $\mathfrak{g}^*$:
+
+ \begin{equation}
+ \{f,g\} = f_{ab}^c T_c \frac{\partial f}{\partial T_a} \frac{\partial g}{\partial T_b},
+ \end{equation}
+ where $f, g \in C^\infty(\mathfrak{g}^*)$. The space of linear functions on $\mathfrak{g}^*$ is closed under this operation as the bivector $\pi$ has linear coefficients. Then $\mathfrak{g}$ is a Lie subalgebra in $C^\infty(\mathfrak{g}^*)$. 
+ 
+ This shows that $\mathfrak{g}^*$, the dual of the Lie algebra $\mathfrak{g}$, is a Poisson manifold.
+ 
+ \begin{thm}{\textbf{(Kirillov-Kostant-Souriau)}}\label{KKS}
+ Coadjoint orbits $\mathcal{O}_\lambda \subset \mathfrak{g}^*$ are symplectic leaves of $\mathfrak{g}^*$.
+ \end{thm}
+ 
+ \begin{pr}
+ A detailed proof of the theorem can be found e.g. in \cite{Kirusha}.
+ \end{pr}
+ 
+By the theorem \ref{KKS} the coadjoint orbits are symplectic manifolds $(\mathcal{O}_\lambda,\hat{\varpi}_O)$. The symplectic structure $\hat{\varpi}_O$ on $\mathcal{O}_\lambda$  is defined as follows. Let $\theta \in \Omega^1(G, \mathfrak{g})$ be a $\mathfrak{g}$-valued 1-form on the group $G$. This form is called Mauer-Cartan form with the formula $\theta = g^{-1}dg$. 
+Consider a principal $H_\lambda$-bundle $G \to \mathcal{O}_\lambda$, where $H_\lambda \simeq \mathcal{O}_\lambda$ is the stabilizer of $\lambda$. 
+For a given point $\lambda \in \mathcal{O}_\lambda$ we define a 2-form on the bundle $G$:
+
+\begin{equation}\label{SonG}
+\varpi_O = -  {\rm Tr} \, \lambda d \theta =  - {\rm Tr} \, \lambda(g^{-1}dg)^2 \in \Omega^2(G)
+\end{equation}
+This is a non-degenerate, by definition closed and basic 2-form, known also as Kirillov form \cite{Kirusha}. Recall that $\Omega^*(G)_{basic} \simeq \Omega^*(\mathcal{O}_\lambda)$. Then the $\varpi_O$ descends on $\mathcal{O}_\lambda$. 
+
+And the symplectic structure on $\mathcal{O}_\lambda$ is given by its pullback under a local section $\sigma: \mathcal{O}_\lambda \to G$:
+\begin{equation}
+\hat{\varpi}_O = \sigma^* \varpi_O \in \Omega^2(\mathcal{O}_\lambda)
+\end{equation}
+This 2-form is closed, non-degenerate and does not depend on a local section for a given $\lambda$. 
+
+
+\chapter{Wilson Line Observable}
+
+\section{Wilson lines}
+
+\subsection{Parallel transport and def. of holonomy}
+
+The connection on the principal $G$-bundle defines parallel transport of vector filds along a curve in the base manifold $N$. It is provided by the horizontal lift of the curve. 
+\begin{defn}
+Let $P$ be a principal $G$-bundle and $\gamma : [t_0,t_1] \to N$ be a curve in N. A \textit{horizontal lift} of $\gamma(t)$ is such a curve $\tilde{\gamma}: [t_0,t_1] \to P$ that $\pi \circ \tilde{\gamma} = \gamma$ and the tangent vector to $\tilde{\gamma}(t)$ is alsways in horizontal tangent subspace: $\dot{\tilde{\gamma}}(t) \in H_{\tilde{\gamma}(t)}P$.
+\end{defn}
+
+
+Now consider a curve $\gamma(t)$ in some open neighbourhood $U_i \subset N$ and its horizontal lift $\tilde{\gamma}(t)$. The local trivialization is $\phi_i(\tilde{\gamma}(t)) = (\gamma(t), g_i(t))$ for $\tilde{\gamma}(t) = g_i\sigma_i(\gamma(t))$ where $g_i(t)$ is a curve on $G$. The condition that the lifted tangent vector is horizontal means that $\alpha (\dot{\tilde{\gamma}}(t)) = 0$ for the connection 1-form $\alpha\in\Omega^1(P, \mathfrak{g})$. 
+
+Then taking the equation for the local connection 1-form $A_i$ \eqref{CGT} with respect to the vector $\dot{\tilde{\gamma}}$ we get:
+$$\alpha (\dot{\tilde{\gamma}}(t)) = 0 = g_i(t) A_i(\pi^*\dot{\tilde{\gamma}}(t))g_i(t)^{-1} - dg_i(t)g_i(t)^{-1}$$
+\begin{equation}\label{PTE}
+  =>  \, \, \,\, \,\, \, dg_i(t) = g_i(t) A_i(\dot{\gamma}(t)).
+\end{equation}
+
+The equation \eqref{PTE} for the curve $g(t)$ is an ordinary differential equation which has a unique solution for each set of intial conditions. Thus if we know $g_i(t_0)$ then $g_i(t_1)$ is uniquely determined. 
+Then a horizontal lift through a point $u_0 = \tilde{\gamma}(t_0) \in P$ is unique. There exists a unique point $u_1 = \tilde{\gamma}(t_1) \in P$. This defines a map $\Pi_{\tilde{\gamma}} : \pi^{-1}(\gamma(t_0))  \to \pi^{-1}(\gamma(t_1))$ from the fiber over $\gamma(t_0)$ to the fiber over $\gamma(t_1)$. This is the \textit{parallel transport} along the curve $\gamma(t)$ with respect to the connection $\alpha$.
+
+Consider a particular case when the curve $\Gamma : [t_0,t_1] \to N$ is a closed loop at $p = \Gamma(t_0) = \Gamma (t_1)$. If we take a horizontal lift of this loop with $u_0 = \tilde{\Gamma}(t_0) \in P$ in general we will have $\tilde{\Gamma}(t_0) \ne \tilde{\Gamma}(t_1)$. We are thus lead to the map $h_{\Gamma} : \pi^{-1}(p) \to \pi^{-1}(p)$ which maps the point $u_0 \in G_p$ to the point $u_1 \in G_p$ on the same fiber. This transformation is compatible with the action of the group $G$: $h_{\Gamma}(gu) = g h_{\Gamma}(u)$ for $g \in G$. 
+
+Now we can define the holonomy group. 
+\begin{defn}
+Let $u\in P$ and $p=\pi (u) \in N$, and let $C_p(N) = \{ \gamma : [t_0,t_1] \to N | \gamma(t_0) = \gamma (t_1) = p\}$ be the set of loops at p. Then the \textit{holonomy group}, a subgroup of the structural group $G$, is given by the set of elements:
+$$H_u = \{ g\in G | h_{\gamma}(u) = gu, \gamma \in C_p(N)\}.$$
+\end{defn}
+
+The holonomy measures how much the parallel transport fails to transport the geometric information along a curve due to the presence of the curvature on the bundle. 
+
+
+
+\subsection{Gauge invariant observable}
+
+Holonomy of the gauge connection leads to the definition of the non-local observable called Wilson loop. 
+
+Consider the equation \eqref{PTE} for the closed loop $\Gamma : [t_0,t_1] \to N$. In this case it is a differential equation  for an element of holonomy group $g_\Gamma(t) \in H$. The formal solution for this equation with the initial condition $g_\Gamma(t_0) = e$ is 
+\begin{equation}
+g_{\Gamma} = P\exp\left(\int_\Gamma A_i\right).
+\end{equation}
+
+$P \exp$ stands for  path ordered exponential,
+%
+\begin{equation}
+P\exp\left( \int_\Gamma A_i\right) = 1 + \int_\Gamma A_i + \frac{1}{2!} \int_{t_1 > t_2} A_i(t_1) \wedge A_i(t_2) + \dots
+\end{equation}
+where $t_1, t_2$ are parameters on the curve $\Gamma$.
+
+The holonomy of the connection changes under the gauge transformation as 
+\begin{equation}
+P\exp\left(\int_\Gamma A_i\right) \to gP\exp\left(\int_\Gamma A_i\right)g^{-1}.
+\end{equation}
+This quantity is not gauge invariant. 
+
+To define a gauge invariant obsevable we need a representation of the gauge group $G$. Then we obtain a matrix-valued 1-form $A^R$ by taking $A$ in the representation $R$,
+%
+\begin{equation}
+A^R = \sum_{a,i} A^a_i \, t_a^R \, dx^i.
+\end{equation}
+The gauge invariance is guaranteed by taking the trace of the holonomy of the connection in the representation $R$. 
+
+
+
+Then a Wilson line (Wilson loop) is an observable defined by the holonomy of the gauge field $A$ along a closed curve $\Gamma$, embedded in the manifold $N$, and a finite dimensional representation $R$ of $G$. It is given by the formula
+%
+\begin{equation}\label{WL}
+W_\Gamma^R(A)= {\rm Tr}_R \, P\exp\left( \int_\Gamma A^R\right),
+\end{equation}
+
+
+
+\section{2-Dimensional Yang-Mills Theory with Wilson Lines}
+Yang-Mills theory in 2 dimensions deserves a particular attention. Being exactly solvable it will come in very handy for testing the new surface observable in Chapter \ref{research}.
+
+To describe the basic set up of the theory we will follow closely \cite{Moore} and \cite{Witten2}. Recall the standard construction of the Yang-Mills action. Let $P$ be a principal $G$-bundle over a 2-dimensional compact surface $\Sigma$, $G$ compact connected Lie group, $\mathfrak{g}$ its Lie algebra. A connection $A$ is given by a $\mathfrak{g}$-valued one-form on $P$, with $F_A = dA + \frac{1}{2} [A,A]$ being its curvature or Yang-Mills field strength. Then the action is given by:
+
+$$ S_{YM}(A)  = \frac{1}{4 e^2} \int_{\Sigma} {\rm Tr} F \ast F.$$
+
+Let $G_{\mu \nu}$ be a metric on $\Sigma$. Then in two dimensions the 2-form field strength $F$ can be mapped to $\mathfrak{g}$-valued 0-form, the Hodge dual of $F$:
+
+$$ F = f\mu, \, \,  f = \ast F,$$
+where  $\mu$ is an area -2-form.
+Then the action can be rewritten in terms of $f$ making explicit the dependence of the functional on the area of $\Sigma$:
+$$ S_{YM}(A)  = \frac{1}{4 e ^2} \int_{\Sigma} d^2 x \sqrt{det G} {\rm Tr} f^2 =  \frac{1}{4 e ^2} \int_{\Sigma} \mu {\rm Tr} f^2.$$
+
+
+\subsection{Canonical quantization of $YM_2$}  
+The procedure involves choosing time and space coordinates $(t,x)$ on $\Sigma$ and cutting $\Sigma$ with equal time slices. For simplicity let $\Sigma$ be a cylinder with $x$ periodical coordinate of period $L$ and let $A_0 = 0$ be the gauge fixing condition. With $T^a$ an orthonormal basis of the Lie algebra $\mathfrak{g}$ the congugate momentum to $A^a_1$ may be computed as follows:
+$$ \pi_{A^a_1} = \frac{\partial \mathcal{L}}{\partial (\partial_0 A^a_1)} = \frac{1}{e^2}F^a_{10} = E^a_1, $$
+where $E$ is the electric field. In the quantum theory $A^a_1$ act as multiplication operators and $\pi_{A^a_1}$ acts by 
+$$\pi_{A^a_1} = -i\frac{\delta}{\delta A^a_1}.$$
+
+Given a closed curve $\Gamma$ with $t=const$ on $\Sigma$ we can associate to it a gauge invariant wave function $\Psi (A)$ which is a function of the holonomy of $A$ around $\Gamma$:
+$$ \Psi[U] = \Psi [P e^{i\int_0^L dx A_1} ].$$
+$\Psi (A)$ is a class function on $G$ invariant under conjugation.
+Then the Hilbert space $\mathcal{H}_{\Gamma}$ is given by the conjugation invariant part of $L^2$ functions on $G$. Decomposition of $L^2(G)$ into the matrix elements of the unitary irreducible representations of $G$ provides the representation or character basis for the Hilbert space. And any wave function $\Psi (A) \in \mathcal{H}_{\Gamma}$ has an expansion in characters $\chi_R(U)$.
+
+\subsection{Hamiltonian operator}
+
+The Hamiltonian density in YM is given by $\mathcal{H}=\frac{e^2}{2}(E^2 + B^2)$. In $dim=2$ it becomes $\mathcal{H}=\frac{e^2}{2} E^2$, as $B=0$, where in terms of operators $E$ is exactly the conjugate momentum to the gauge field. 
+
+The expression can be confirmed by the explicit calculation:
+%
+$$
+\mathcal{H} = \pi_{A^a_1} F^a_{10} - \mathcal{L} = \frac{1}{e^2}F^a_{10}F^a_{10} - \frac{1}{2e^2}F^a_{10}F^a_{10} = \frac{1}{2e^2}F^a_{10}F^a_{10} = \frac{e^2}{2}\pi_{A^a_1}^2,
+$$
+where we have used $F^a_{10} = e^2\pi_{A^a_1}$.
+And the Hamiltonian operator becomes $H = -\frac{e^2}{2} \int^L_0 dx \frac{\delta}{\delta A^a_1}\frac{\delta}{\delta A^a_1}$. It is diagonalized in the representation basis and on its eigenfunctions (the characters) $\chi_R(U)$ has eigenvalues $E_R$
+
+\subsection{Eigenvalues of the Hamiltonian}
+To find the eigenvalues of the Hamiltonian we act by it on its eigenfunctions $\chi_R(U)$.
+In order to do that we first observe the action of the operator $\frac{\delta}{\delta A^a_1(y)}$ on the functional $U[A]$ at some point $y\in (0,L)$:
+%
+$$
+\frac{\delta U[A]}{\delta A^a_1(y)}  =   {\rm lim}_{\epsilon \to 0}\frac{P e^{i\int_0^L T_a(A^a_1(x) + \epsilon \delta(x-y))dx} - P e^{i\int_0^L T_aA^a_1(x)dx}}{\epsilon}.
+$$
+To compute this limit we need to expand the path ordered exponential:
+%
+$$
+\begin{array}{lll}
+P e^{i\int_0^L T_a(A^a_1(x) + \epsilon \delta(x-y))dx} & = & 1 + i\int_0^L dx_1 P[T_a(A^a_1(x_1) + \epsilon \delta(x_1-y))] \\
+& + & \frac{1}{2!}i\int_0^L dx_1 i\int_0^L dx_2P[T_a(A^a_1(x_1) +\epsilon \delta(x_1-y)) \, T_a(A^a_1(x_2) \epsilon \delta(x_2-y))] \\
+&+& \frac{1}{3!}...etc,
+\end{array}
+$$
+where $P[...]$ stands for path ordered product. Expanding further and keeping just the terms up to the first order in $\epsilon$ we are left with:
+%
+\begin{spacing}{1.45}
+$
+\begin{array}{lll}
+P e^{i\int_0^L T_a(A^a_1(x) + \epsilon \delta(x-y))dx} & = & 1 + i\int_0^L dx_1T_a(A^a_1(x_1) + i\int_0^L dx_1 i\int_0^{x_1} dx_2T_a(A^a_1(x_1) T_b(A^b_1(x_2) + ... \\
+&+& i\int_0^L dx_1T_a\epsilon \delta(x_1-y))dx_1 +  i\int_0^L dx_1 i\int_0^{x_1} dx_2T_a\epsilon \delta(x_1-y)) \, T_b(A^b_1(x_2) \\
+ &+& i\int_0^L dx_1 i\int_0^{x_1} dx_2 T_a(A^a_1(x_1)T_b\epsilon \delta(x_2-y)) + ...etc,
+\end{array}
+$
+\end{spacing}
+where the first part can be reassembled into the path ordered exponential $P e^{i\int_0^L T_aA^a_1(x)dx}$ and the resting terms are the sum
+%
+$$
+\sum_{n=0}^{\infty} (i)^n\sum_{j=1}^n \int_0^L dx_1 \int_0^{x_1} dx_2 \, ..... \int_0^{x_{n-1}} dx_n T_aA^a_1(x_1)....T_b\epsilon \delta (x_j - y) \widehat{(T_bA^b_1(x_j))}.....T_cA^c_1(x_n),
+$$
+$\widehat{(T_aA^a_1(x_j))}$ meaning that this term is missing from the product. We perform the integration with respect to $x_j$ and obtain
+%
+\begin{spacing}{1.45}
+$
+\begin{array}{lll}
+&P& e^{i\int_0^L T_a(A^a_1(x) + \epsilon \delta(x-y))dx} = P e^{i\int_0^L T_aA^a_1(x)dx} \\
+&+& \epsilon  \sum_{n=0}^{\infty} (i)^n \sum_{j=1}^n \int_0^L dx_1 .....\widehat{\int_0^{x_{j-1}} dx_j}.... \int_0^{x_{n-1}} dx_n T_aA^a_1(x_1)....T_b\widehat{(T_bA^b_1(x_j))}.....T_cA^c_1(x_n).
+\end{array}
+$
+\end{spacing}
+
+%$$
+%Pe^{\int_0^L T_a(A^a_1(x) + \epsilon \delta(x-y))dx} = P e^{\int_0^L T_aA^a_1(x)dx} + \epsilon T_a \sum_{n=0}^{\infty} \frac{1}{n!} n \int_0^L dx_1 ..... \int_0^L dx_{n-1} P[T_aA^a_1(x_1).....T_aA^a_1(x_{n-1})]
+%$$
+%
+%\begin{spacing}{1.55}
+%$
+%\begin{array}{lll}
+
+%&= & P e^{\int_0^L T_aA^a_1(x)dx} + \epsilon T_a \sum_{n=1}^{\infty} \frac{1}{(n-1)!}  \int_0^L dx_1 ..... \int_0^L dx_{n-1} P[T_aA^a_1(x_1).....T_aA^a_1(x_{n-1})] \\
+
+%&=& P e^{\int_0^L T_aA^a_1(x)dx} + \epsilon T_a P e^{\int_0^L T_aA^a_1(x)dx}.
+%\end{array}
+%$
+%\end{spacing}
+Substracting $P e^{i\int_0^L T_aA^a_1(x) dx}$, reassembling the terms and taking the limit, we get
+$$ \frac{\delta U[A]}{\delta A^a_1(y)} = P e^{i\int_y^L T_aA^a_1(x) dx} T_a  P e^{i\int_0^y T_aA^a_1(x) dx}.$$ 
+%
+%$$
+%\frac{\delta U[A]}{\delta A^a_1(y)}  =   {\rm lim}_{\epsilon \to 0}\frac{P e^{\int_0^L T_aA^a_1(x)dx} + \epsilon T_aP e^{\int_0^L T_aA^a_1(x)dx}- P e^{\int_0^L T_aA^a_1(x)dx}}{\epsilon} = T_aP e^{\int_0^L T_aA^a_1(x)dx} = T_a U[A].
+%$$
+
+And thus $$\pi_{A^a_1} \chi_R(U) = \chi_R(T_a U)$$ at point $y=0$.
+
+Up to a constant the action of $\pi_{A_1}^2$ on $\chi_R(U)$ involving the second functional derivative of $U[A]$ makes appear the expression $\sum_a T^aT^a = C_2(R)$ which is the quadratic Casimir value of the representation $R$. 
+Consequently, the eigenvalues of the Hamiltonian are defined by
+%
+$$
+H = (-\frac{e^2}{2} \int^L_0 dx \frac{\delta}{\delta A^a_1(x)}\frac{\delta}{\delta A^a_1(y)}) \chi_R(U) = E_R \chi_R(U) = \frac{e^2}{2}LC_2(R)\chi_R(U).
+$$
+
+\subsection{$YM_2$ partition function}
+Now we can define the $YM_2$ partition function on $\Sigma$ which is a function of $U$ and of the area of the surface:
+%
+\begin{equation}\label{Z}
+Z(\tau, U) =\sum_R d_R^{1-2g} e^{-tE_R} \chi_R(U) =  \sum_R d_R^{1-2g} e^{-\tau C_2(R)} \chi_R(U),
+\end{equation}
+where $g$ is the genus of the surface, $\tau = \frac{e^2}{2}a$, $a=tL$ is the area of the surface and $d_R$ is the dimension of the representation.
+
+For a closed surface, we have
+%
+\begin{equation}\label{Z_C}
+Z(\tau) = Z(\tau, e) = \sum_R d_R^{1-2g} e^{- \tau C_2(R)} \chi_R(e) = \sum_R d_R^{2-2g} e^{- \tau C_2(R)}.
+\end{equation}
+
+\section{Wilson Line in Alekseev-Faddeev-Shatashvili (AFS) Representation}
+
+\subsection{Wilson Line as a 1-dimensional Quantum System}
+
+The Wilson line given by the formula \eqref{WL} can be naturally interpreted in as the partition function of an auxiliary quantum system attached to the curve $\Gamma$. In this subsection we follow \cite{CB} to give a brief description of this interpretation. 
+
+A beautiful observation about the operator \eqref{WL} can be made. If we could identify the representation $R$ with the Hilbert space $\mathcal{H}$ of the system, the holonomy of $A$ can be identified with the time-evolution operator around $\Gamma$, and the trace over $R$ would be then the usual trace over the Hilbert space that defines the partition function in the Hamiltonian formalism.
+
+$$
+R \longleftrightarrow \mathcal{H}
+$$
+\begin{equation}
+{\rm Tr}_R \, P\exp\left( \int_\Gamma A^R\right) \longleftrightarrow  {\rm Tr}_{\mathcal{H}} \, P\exp\left( -i\int_\Gamma H\right)
+\end{equation}
+
+We interpret the closed curve $\Gamma$ as a time line with periodic boundary conditions. 
+The idea is to start with some classical phase space on which the gauge group $G$ acts as a symmetry and upon quantization to obtain a Hilbert space $\mathcal{H}$ isomorphic to the irreducible representation $R$ for which the time-evolution operator around $\Gamma$ is given by the holonomy of $A$ which acts on $R$ as an element of $G$.
+
+The classical phase space involved in the question is precisely a coadjoint orbit of the group action $\mathcal{O}_\lambda$. 
+Irreducible finite dimensional representations of $G$ are in one-to-one correspondence with integral coadjoint orbits $O \subset \mathfrak{g}^*$. In more detail, an irreducible representation is uniquely determined by its highest weight $\lambda \in \mathfrak{h}^*$, where $\mathfrak{h} \subset \mathfrak{g}$ is a Cartan subalgebra of $\mathfrak{g}$. Then, one can associate to $\lambda$ the orbit of the coadjoint action in the space $\mathfrak{g}^*$. This guarantees the identification of the Hilbert space obtained upon quantizing the orbit with the representation $R$. 
+
+Canonical quantization promotes the Poisson bracket to the commutator, canonical coordinates become operators: $[\hat{T}_a,  \hat{T}_a] = -if_{ab}^c \hat{T}_c$. The quantized auxiliary field $\hat{T}$ defines the representation of $\mathfrak{g}$ on the Hilbert space. 
+
+To construct the analog of the Hamiltonian $H$ acting on the Hilbert space we couple the auxiliary field to the background field $A$. Then the partition function of the quantized system takes the form 
+\begin{equation}
+{\rm Tr}_{\mathcal{H}} \, P\exp\left( -i\int_\Gamma \langle \hat{T}, A\rangle\right) = {\rm Tr}_{\mathcal{H}} \, P\exp\left( -i\int_\Gamma A^a(t)\hat{T}_a dt\right).
+\end{equation}
+
+This is exactly a Wilson line. 
+
+
+
+\subsection{Path Integral Quantization on a Symplectic Phase Space}
+
+By definition a path integral reproduces time evolution of a quantum system described by Hamiltonian formalism. Hence if instead of canonical quantization we apply a path integral formalism to quantizing the coadjoin orbit we obtain a different presentation for the same object, for a Wilson line observable. 
+
+First let us see how the path integral quantization of a symplectic phase space works. 
+Consider a physical system whose phase space is given by a symplectic manifold $(M, \omega, H)$ with the symplectic structure $\omega\in \Omega^2(M)$ and the Hamiltonian $H\in C^\infty(M)$. Let $x_i$ be coordinates on $M$. The Poisson bracket on $M$ will govern the time evolution of the system:
+\begin{equation}
+\dot{x}_i = \{H, x_i\}.
+\end{equation}
+
+The action functional on the phase space $(M, \omega, H)$ is given by
+\begin{equation}\label{action}
+S = \int (\alpha - H) dt,
+\end{equation}
+where $\alpha$ is the symplectic potential solving the equation $\omega = d\alpha$ at least locally. 
+Recall an example from classical mechanics with $\omega = dp^i \wedge dq^i$, $\alpha = p_i dq^i$. The action functional for the system would be 
+$$
+S = \int \left( p_i \dot{q}_i - H(p, q, t)\right) dt.
+$$
+
+And after path integral quantization the partition function of the system becomes
+\begin{equation}
+\int \mathcal{D}x e^{iS}.
+\end{equation}
+
+
+
+
+
+
+\subsection{AFS Representation}\label{AFS_line}
+
+A path integral quantization providing a path integral presentation of Wilson lines described by Alekseev-Faddeev-Shatashvili \cite{AFS} works as follows. Let $b: \Gamma \to \mathfrak{g}^*$ be an auxiliary field defined on the curve $\Gamma$ and taking values in $O_\lambda$. In addition, we introduce a field $g: \Gamma \to G$ which takes values in $G$, with the property $b(s)=g(s) \lambda g(s)^{-1}$. 
+The symplectic structure $\varpi_O$ on the orbit is given by the formula \eqref{SS}, the symplectic potential $\alpha_O$ is $\alpha_O = \langle \lambda, g^{-1}dg\rangle$, and the Hamiltonian $H = - \langle \lambda, g^{-1}Ag\rangle$. Further on we denote the canonical pairing $\langle \cdot , \cdot \rangle$ by ${\rm Tr}( \cdot \, \, \cdot)$.
+Then the Wilson lie is
+%
+\begin{equation}
+W_\Gamma^R = \int {\mathcal{D}} g \, e^{i S_\lambda(A,g)},
+\end{equation}
+where 
+%
+\begin{equation}\label{S(g)}
+S_\lambda(A, g) =  \int_\Gamma \, {\rm Tr} \, \lambda(g^{-1} dg + g^{-1} A g) =
+\int_\Gamma \, {\rm Tr} \, b(dg g^{-1} + A)
+\end{equation}
+is the action functional \refeq{action}. 
+Similar to the Chern-Simons action, we can introduce the differential form
+%
+$$
+{\rm AFS}_\lambda(A,g) = {\rm Tr} \, \lambda(g^{-1} dg + g^{-1} A g) =  {\rm Tr} \, b(dg g^{-1} + A),
+$$
+such that
+%
+$$
+S_\lambda(A,g) = \int_\Gamma {\rm AFS}_\lambda(A,g).
+$$
+
+
+This action is invariant with respect to the following gauge transformations with parameter $h: \Gamma \to G$:
+$$ g \mapsto hg, \,\, A \mapsto A^h=hAh^{-1} - dhh^{-1}, \,\, b \mapsto hbh^{-1}.$$
+
+Indeed, it is easy to check that  
+%
+\begin{spacing}{1.45}
+$
+\begin{array}{lll}
+AFS_\lambda (A^h, hg) & = &  {\rm Tr} \, \lambda((hg)^{-1} d(hg) + (hg)^{-1} (hAh^{-1} - dhh^{-1}) hg) \\
+& = & {\rm Tr} \, \lambda(g^{-1} dg + g^{-1} A g)\\
+& = & AFS_\lambda(A,g).
+\end{array}
+$
+\end{spacing}
+
+Hence,  $S_\lambda (A^h, hg) = S_\lambda(A,g)$.
+
+It is interesting to consider another class of gauge transformations
+%
+$$ g \mapsto gt^{-1}, \, t \in H_\lambda,  
+$$
+where $H_\lambda$ is the subgroup of $G$ preserving $\lambda$ under the coadjoint action:
+%
+$$
+H_\lambda = \{ h \in G; \,\, h \lambda h^{-1} =\lambda \} .
+$$
+For $\lambda \in \mathfrak{h}^*$ generic, $H_\lambda$ is the Cartan subgroup of $G$.
+However, $S_\lambda(A,g)$  is not invariant under these transformations. 
+Instead, it acquires an additional term:
+
+\begin{equation} 
+S_\lambda(gt^{-1}, A)  =  S_\lambda(g, A) - \int_{\Gamma} {\rm Tr}\lambda(dtt^{-1}) =  S_\lambda(g, A)  - 2 \pi {\rm Tr}(\lambda \vec{n}),
+\end{equation}
+where $\vec{n}=\int_\Gamma dtt^{-1}$. The components of $\vec{n}$ are the winding numbers of the map $t: \Gamma \to (S^1)^r$
+(here $r$ is the rank of $H_\lambda$).
+Again, similarly to the situation with the Chern-Simons action, the exponential $e^{ikS_\lambda(g, A)}$ is gauge invariant if 
+%
+$$
+k\, {\rm Tr} \, (\lambda \vec{n}) \in \mathbb{Z} 
+$$
+for vectors $\vec{n}\in \mathbb{Z}^r$.
+If $\lambda$ is an integral weight, then $Tr(\lambda \vec{n})$ is always an integer. This requires the coefficients $k$ to be quantized.
+
+
+
+
+
+
+\chapter{Surface observable for Gauge Theories}\label{research}
+
+\section{A simple example: the case of $G=U(1)$}\label{2}
+
+		We start with a simple example of the first Chern class of a principal circle bundle over an orientable surface $\Sigma$. Let $P \to \Sigma$ be a principal $U(1)$-bundle, and let $\mathfrak{\tilde{a}}\in \Omega^1(P)$ be a connection on $P$. Then, $F_\mathfrak{\tilde{a}} = d\mathfrak{\tilde{a}}$ is the curvature of $P$ and the first Chern form. It is basic and descends to a 2-form on $\Sigma$. If $\Sigma$ is closed, then
+%
+$$
+c_1(P) = \frac{1}{2\pi} \, \int_\Sigma F_\mathfrak{\tilde{a}} 
+$$
+is an integer called the first Chern number of $P$. One can view the defining equation for the curvature, $F_\mathfrak{\tilde{a}} = d \mathfrak{\tilde{a}}$ as the definition of the 1-dimensional Chern-Simons form,
+%
+$$
+F_\mathfrak{\tilde{a}}= d \,  {\rm CS}_1(\mathfrak{\tilde{a}}),
+$$
+where ${\rm CS}_1(\mathfrak{\tilde{a}})=\mathfrak{\tilde{a}}$.
+
+Assume that the surface $\Sigma$ is connected, orientable and has a nontrivial boundary $\Gamma= \partial \Sigma \neq \emptyset$. Then, the circle bundle $P$ is necessarily trivial. Let's choose a global section $\sigma: \Sigma \to P$ and define the gauge field $a = \sigma^* \mathfrak{\tilde{a}}$ so that $F_a = \sigma^* F_\mathfrak{\tilde{a}}$. \footnote{To distinguish between the various connections appearing in the paper, in 1-dimensional CS-theory we use a gothic letter $\mathfrak{\tilde{a}}$ for the connection on the principal bundle and an ordinary letter $\it{a}$ for the 1-form representing this connection on the manifold.} Then, one can define a  quantity $S(a)$ associated to $\Sigma$ via
+%
+$$
+S(a)= \int_\Sigma F_a.
+$$
+We can think of this expression as of the simplest surface observable associated to the surface $\Sigma$. Using the Stokes formula, we obtain
+%
+\begin{equation}  \label{paradox}
+S(a)= \int_\Sigma  F_a = \int_\Sigma da = \int_{\Gamma} a.
+\end{equation}
+Let $\phi: \Sigma \to U(1)$ and consider the gauge transformation $a^\phi=a+d\phi$. Then, the curvature $F_a$ is gauge invariant, and so is the expression for the surface observable $\int_\Sigma F_a$.  
+
+However, in the expression $\int_\Gamma a$ the gauge invariance is lost! Indeed,
+%
+$$
+\int_\Gamma a^\phi = \int_\Gamma (a + d\phi) = \int_\Gamma a + \left( \phi(2\pi) - \phi(0) \right).
+$$
+In general, $\phi(2\pi) - \phi(0) = 2\pi n$ with $n \in \mathbb{Z}$. The fact that the left hand side of \eqref{paradox} is gauge invariant and the right hand side is not may appear as a contradiction. But there is a solution to this puzzle: for gauge transformations defined on the surface $\Sigma$ (that is, $\phi: \Sigma \to U(1)$) we have $\phi(2\pi) = \phi(0)$, and the extra term $\phi(2\pi) - \phi(0)$ always vanishes.
+
+If we use the expression $S(a)=\int_\Gamma a$ and admit arbitrary gauge transformations defined on $\Gamma$, it is the exponential $\exp(iS(a))$ which becomes gauge invariant, while $S(a)$ is not gauge invariant in general.
+
+\section{Diakonov-Petrov formula as Chern-Simons term}
+
+
+
+In Section \ref{CST} we discussed the Chern-Simons action  as an example of the bulk-boundary correspondence \eqref{BB1}.
+
+In this Section, we shall introduce another example of the same principle based on the path integral description of Wilson lines in gauge theory given in Section \ref{AFS_line}. 
+
+
+\subsection{The Diakonov-Petrov (DP) formula}
+In what follows, the action $S(A,g)$ \eqref{S(g)} will play the role of the Chern-Simons action. In more detail, assume that the curve $\Gamma$ bounds a surface $\Sigma$. We would like to unravel the analogue of the density ${\rm Tr}\, F_A^2$ supported on this surface. In fact, that was exactly the logic of Diakonov and Petrov who came up with the following formula \cite{DP}:
+%
+\begin{equation}
+{\rm DP} = d \, {\rm AFS}_\lambda(A,g).
+\end{equation}
+Expanding the form $d \, {\rm AFS}_\lambda(A,g)$ we obtain the expression 
+\begin{equation}\label{DPL}
+{\rm DP} = {\rm Tr} \, b \left( F_A - (d_A g g^{-1})^2 \right)
+\end{equation}
+for the Diakonov-Petrov Lagrangian in terms of  a matrix-valued 1-form $A$ and a matrix-valued function $g$:
+
+%
+\begin{spacing}{1.45}
+$
+\begin{array}{lll} 
+d \, {\rm AFS}_\lambda(A,g) & = & d\,\, {\rm Tr} \, \lambda(g^{-1} dg + g^{-1} A g) \\
+& = & {\rm Tr} \, \lambda(d g^{-1} dg + d g^{-1} Ag + g^{-1} dA g - g^{-1} A dg) \\ 
+& = & {\rm Tr} \, \lambda (-g^{-1} dg g^{-1} dg - g^{-1} dg g^{-1} Ag + g^{-1} dA g - g^{-1} Ag g^{-1} dg) \\
+& = & {\rm Tr} \, \lambda (g^{-1} F_A g - \frac{1}{2} g^{-1}[A,A] g - \frac{1}{2} [g^{-1} dg , g^{-1} dg] - [g^{-1} dg , g^{-1} Ag]) \\
+& = & {\rm Tr} \, b ( F_A - \frac{1}{2} [dg g^{-1} + A , dg g^{-1} + A] ) \\
+& = & {\rm Tr} \, b \left( F_A - (d_A g g^{-1})^2 \right) \\
+& = & {\rm DP}_\lambda(A,g),
+\end{array}
+$
+\end{spacing}
+where we used $dA = F_A - \frac{1}{2} [A,A]$, $dg^{-1} = -g^{-1} dg g^{-1}$ and $d_A g = dg + Ag$.
+
+Now consider a surface $\Sigma$ bounded by the curve $\Gamma$. One can use the Stokes formula to give a new expression for the 
+action $S_\lambda(A,g)$,
+%
+$$
+S_\lambda(A,g)= \int_\Gamma {\rm AFS}_\lambda(A,g) = \int_\Sigma {\rm DP}_\lambda(A,g) = 
+\int_\Sigma {\rm Tr} \, b \left( F_A - (d_A g g^{-1})^2 \right).
+$$
+The right hand side is manifestly gauge invariant whereas the expression $\int_\Gamma {\rm AFS}_\lambda(A,g)$ is not. The explanation is similar to the one for the Chern-Simons action: for gauge transformations $g: \Sigma \to G$, both expressions for the action are gauge invariant; which is not necessarily the case for the integral of ${\rm AFS}_\lambda(A,g)$ if one considers a gauge transformation $g: \Gamma \to G$. 
+
+
+
+
+
+%%%%%%%%%%%
+\section{Equivariant cohomology approach}
+
+The main result of this Section is the equivariant cohomology interpretation of the Diakonov-Petrov formula.
+
+%The Diakonov-Petrov formula discussed in the previous Section can be interpreted in terms of equivariant cohomology. 
+
+
+
+\subsection{The form ${\rm DP}_\lambda(A,g)$ as an equivariant cocycle}
+Consider in more detail the Diakonov-Petrov action, where the form
+
+%
+\begin{equation}
+{\rm DP}_\lambda(A,g)= {\rm Tr} \, \lambda (g^{-1} F_A g - \frac{1}{2} g^{-1}[A,A] g - \frac{1}{2} [g^{-1} dg , g^{-1} dg] - [g^{-1} dg , g^{-1} Ag])
+\end{equation}
+is of particular interest. Here $A$ is the gauge field on  $N$ and $F_A$ is its curvature.  We can now construct an equivariant differential form on the orbit ${\rm O}_\lambda$ by replacing $A$ with $a$ and $F_A$ with $f$. The resulting element has the form
+%
+\begin{equation}
+{\rm DP}_\lambda(a,g) = {\rm Tr} \, \lambda (g^{-1} f g - \frac{1}{2} g^{-1}[a,a] g - \frac{1}{2} [g^{-1} dg , g^{-1} dg] - [g^{-1} dg , g^{-1} ag])
+\end{equation}
+ It is a well-known fact that the coadjoint orbits $O_\lambda \subset \mathfrak{g}^*$ (discussed in the previous Section) are symplectic manifolds $(O_\lambda, \varpi_O)$. Here $\varpi_O$, defining the symplectic structure on $O_\lambda$, can be easily identified as one of the terms in ${\rm DP}_\lambda(a,g)$: 
+
+%
+\begin{equation}
+\varpi_O = - {\rm Tr} \, \lambda(g^{-1}dg)^2= - {\rm Tr} \, b(dg g^{-1})^2.
+\end{equation}
+This is a closed and non-degerate 2-form also known as the Kirillov form. 
+
+Our first claim is that ${\rm DP}_\lambda(a,g)$ is equivariantly closed. Indeed,
+%
+$$
+{\rm DP}_\lambda(a,g) = d {\rm AFS}_\lambda(a,g)=d {\rm Tr} \, \lambda(g^{-1} dg + g^{-1} a g).
+$$
+Hence,  $d {\rm DP}_\lambda(a,g)= 0$.
+
+
+Futhermore, applying the combined contraction gives:
+%
+\begin{equation}
+\imath_{\xi} {\rm DP}_\lambda(a,g) = {\rm Tr} \, b (  - \frac{1}{2} [-\xi g g^{-1} + \xi , dg g^{-1} + a] + \frac{1}{2} [dg g^{-1} + a , - \xi g g^{-1} + \xi] ) = 0
+\end{equation}
+where we used $\imath_{\xi}(dg) = -\xi g$.
+
+From closedness and horizontality of ${\rm DP}_\lambda(a,g)$ it automatically follows that its Lie derivative vanishes:
+%
+\begin{equation}
+L_{\xi} {\rm DP}_\lambda(a,g) = (\imath_{\xi} d + d \imath_{\xi}) {\rm DP}_\lambda(a,g) = 0.
+\end{equation}
+
+ The two conditions $L_{\xi} {\rm DP}_\lambda(a,g) = 0, \, \imath_{\xi} {\rm DP}_\lambda(a,g) = 0$ being satisfied,  ${\rm DP}_\lambda(a,g)$ is an equivariant differential form on the coadjoint orbit $O_\lambda$.  Since it is equivariantly closed, we can view it as an equivariant extension of the Kirillov symplectic form.
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%
+\section{Surface observables and topology of principal bundles}
+
+In this Section, we give an interpretation of the surface observables in terms of the first Chern class of the bundle with the structure group $H_\lambda$, making use of the Borel model of equivariant cohomology. 
+%In this section we are going to discuss a more conceptual description of the equivariant cohomology approach in terms of the Borel model. 
+For this purpose we need to add some details to our initial setup of Section 3.1. 
+
+\subsection{The interpretation of surface observables in terms of differential forms} \label{5.1}
+Let $N$ be a manifold (space-time), $P\to N$ be a principle $G$-bundle over $N$, 
+$\Sigma \subset N$ be a submanifold of $N$,  and $P|_\Sigma \to \Sigma$ be the restriction of the principal bundle $P$ to $\Sigma$. Assume that over $\Sigma$ the structure group $G$ of $P$ reduces to a subgroup $H \subset G$. That is, $\Sigma$ carries a principal $H$-bundle $Q \to \Sigma$, and there is an $H$-equivariant inclusion $ \it{i}: Q \to P|_\Sigma$. 
+
+The bundle $Q \to \Sigma$ is a pull-back of the universal bundle $EH\to BH$ under the map $\sigma: \Sigma \to BH$.
+It induces a map in cohomology $\sigma^*: H^*(BH) \to H^*(\Sigma)$. Since $\Sigma$ is 2-dimensional, we are particularly interested in the cohomology group $H^2(BH) \cong {\rm char}(\mathfrak{h}) \subset \mathfrak{h}^*$. Here ${\rm char}(\mathfrak{h})$ is the set of characters of the Lie algebra $\mathfrak{h}$,
+
+\begin{equation} \label{[]}
+{\rm char}(\mathfrak{h})=\{ \lambda \in \mathfrak{h}^*; \,\,  \langle \lambda, [x,y] \rangle =0 \,\,  {\rm for \, all} \, x,y \in \mathfrak{h} \} .
+\end{equation}
+
+For a closed surface $\Sigma$, we now obtain a topological observable associated  to a $G$-bundle
+$P \to N$, the $H$-subbundle $Q \to \Sigma$ of $P_\Sigma$ and to a character $\lambda \in {\rm char}(\mathfrak{h})$. 
+It is given by
+%
+$$
+\int_\Sigma \sigma^* c_\lambda,
+$$
+where $c_\lambda \in H^2(BH)$ is the image of  $\lambda \in {\rm char}(\mathfrak{h}^*)$.
+
+The interpretation in terms of differential forms is as follows. The form ${\rm DP}_\lambda(a,g)$ defined on a universal G-bundle can be viewed as an element of $\Omega_G^2(P \times Q , \mathfrak{g})$. Let $\pi: \mathfrak{g} \to \mathfrak{h}$ be an $H$-equivariant projection from $\mathfrak{g}$ to $\mathfrak{h}$, and let
+%
+$$
+\mathfrak{a} = \pi(g^{-1} dg + g^{-1} \mathcal{A} g).
+$$
+This is a an element of $\Omega^1(P \times Q, \mathfrak{h})$. We will show that
+%
+$$
+{\rm DP}_\lambda(\mathcal{A},g) = {\rm Tr}\, \lambda (d\mathfrak{a} + \mathfrak{a}^2).
+$$
+
+First, observe that the condition \eqref{[]} implies ${\rm Tr} \, \lambda (\mathfrak{a}^2) = 0$. Indeed,  $\mathfrak{a}^2 = \frac{1}{2} [\mathfrak{a},\mathfrak{a}]$ and $\mathfrak{a}$ takes values in $\mathfrak{h}$. Thus, we are interested in the expression 
+$${\rm Tr} \, \lambda \, d\mathfrak{a} = {\rm Tr} \, \lambda\, (d\mathfrak{a} + \mathfrak{a}^2).$$
+
+
+Second, recall the structure of the invariant pairing between the elements of $\mathfrak{h}$ and its dual $\mathfrak{h}^*$, $\lambda \in \mathfrak{h}^*$ being an element of the dual to the Cartan subalgebra of $\mathfrak{g}$. One can view $\mathfrak{g}$ as a direct sum of the subalgebra $\mathfrak{h}$ and its invariant complement $\mathfrak{p}$ (that is,
+$[\mathfrak{h}, \mathfrak{p}] \subset \mathfrak{p}$):
+$$\mathfrak{g} \cong \mathfrak{h} \oplus \mathfrak{p}.$$
+
+Then the invariant product between two elements is defined in the following way:
+$$ {\rm Tr} \, (\lambda x) = \langle \lambda , x \rangle \, \, for \, \, \lambda \in \mathfrak{h}^*, \, x \in  \mathfrak{h},$$
+$$ {\rm Tr} \, (\lambda y) = 0 \, \, for \, \, \lambda \in \mathfrak{h}^*, \, y \in  \mathfrak{p}.$$
+And the product of $\lambda$ with an element of $\mathfrak{g}$ under projection to $\mathfrak{h}$ is the same as the product of $\lambda$ with this element itself:
+$$ {\rm Tr} \,( \lambda \, \pi (x+y)) = {\rm Tr} \, (\lambda x)= {\rm Tr} \, (\lambda (x+y) )= \langle \lambda , x \rangle.$$
+
+Thus the following direct computation proves our claim:
+\begin{spacing}{1.45}
+$\begin{array}{lll}
+{\rm Tr} \lambda (d\mathfrak{a} + \mathfrak{a}^2) & = & {\rm Tr} \lambda d\mathfrak{a} \\
+& =&  {\rm Tr} \lambda \pi(d(g^{-1} dg + g^{-1} \mathcal{A} g)) \\
+& = & {\rm Tr} \lambda \pi (g^{-1} F_{\mathcal{A}} g - \frac{1}{2} g^{-1}[\mathcal{A},\mathcal{A}] g - \frac{1}{2} [g^{-1} dg , g^{-1} dg] - [g^{-1} dg , g^{-1} \mathcal{A}g]) \\
+& = & {\rm Tr} \lambda \pi (g^{-1} F_{\mathcal{A}} g - (g^{-1} d_{\mathcal{A}} g)^2) \\
+& =  & {\rm Tr} \lambda (g^{-1} F_{\mathcal{A}} g - (g^{-1} d_{\mathcal{A}} g)^2) \\
+& =&  {\rm DP}_\lambda(\mathcal{A},g).
+\end{array}$
+\end{spacing} 
+Looking closely at this expression, one can notice that $ {\rm DP}_\lambda(\mathcal{A},g) = d \, {\rm Tr} \, (\lambda \mathfrak{a})$ corresponds to the defining equation for the curvature. And furthermore, it can be used to describe the 1-dimensional Chern-Simons form, exactly as in the simple example of Section \ref{2}:
+$$   {\rm DP}_\lambda(\mathcal{A},g) = d \, CS_\lambda (\mathfrak{a}),$$
+where $CS_\lambda (\mathfrak{a})= {\rm Tr} \, (\lambda \mathfrak{a})$.
+Thus our more sofisticated definition for a surface observable is structurally the same as the simplest one. 
+
+
+
+%The second description suggest to construct an equivariant map $P|_\Sigma \to G/H$ and then to pull back to $\Sigma$ an equivariant class
+%on $G/H$ defined by the character $\lambda$. The approach given in the appendix and the analysis of Section 4 shows that this is exactly the description of the Diakonov-Petrov surface integrals. 
+
+
+
+\subsection{The Borel model approach}
+
+In Section \ref{5.1}  we introduced a map $\sigma^*: H^*(BH) \to H^*(\Sigma)$
+and underlined that $H^2(BH) \cong {\rm char}(\mathfrak{h}) \subset \mathfrak{h}^*$, where ${\rm char}(\mathfrak{h})$ is the set of characters of the Lie algebra $\mathfrak{h}$. Hence, for every $\lambda \in {\rm char}(\mathfrak{h})$ we get a class $c_\lambda \in H^2(BH)$, its pull-back $\sigma^* c_\lambda \in H^2(\Sigma)$ is a degree 2 class on $\Sigma$, and the number 
+%
+$$
+\int_\Sigma \sigma^* c_\lambda
+$$
+is a topological observable. This quantity admits the following (somewhat more sophisticated) description.
+
+Let $M$ be a $G$-manifold and $EG \to BG$ be the universal principal $G$-bundle. Then, the product space $EG \times M$ carries a free diagonal $G$-action, and the equivariant cohomology of $M$ is given by the Borel construction
+%
+$$
+H^*_G(M)=H^*((EG\times  M)/G).
+$$
+To describe our surface observable we start with  the Borel classifying bundle and construct a sequence of maps.
+The principal $G$-bundle $P \to N$ is obtained as a pull-back of $EG$ under a map $\beta: N \to BG$. The map $\beta$ lifts to the bundle map $\mathcal{B}: P \to EG$. 
+The bundle $Q \to \Sigma$ in its turn is induced by the map $\sigma: \Sigma \to BH$ which induces the map in cohomology $\sigma^*: H^*(BH) \to H^*(\Sigma)$.
+
+Since we have a $G$-bundle $P|_\Sigma$ over $\Sigma \subset N$ and the $H$-subbundle $Q \to \Sigma$, we obtain a canonical map
+%
+$$
+\mathcal{D}: P|_\Sigma \to G/H .
+$$
+In more detail, let $s \in \Sigma$ and $p \in P_s$. Choose any point $q \in Q_s \subset P_s$. Then, there is a unique element $g \in G$ such that $g \cdot q = p$. For a different choice of $q' \in Q_s$, we have $q'=h \cdot q$ with $h \in H$ and $g' \cdot q' = p$ with $g'=gh^{-1}$. Thus $gH$ is a well-defined coset in $G/H$. 
+
+ Hence, over $\Sigma$ we obtain a map 
+%
+$$
+\Delta = \mathcal{B} \times \mathcal{D}: P|_\Sigma \to EG \times G/H
+$$
+which in turn descends to the map
+%
+$$
+\delta: P|_\Sigma/G = \Sigma \to (EG \times G/H)/G.
+$$
+
+Its pull-back  maps the equivariant cohomology $H^*_G(G/H)$ to the cohomology $H^*(\Sigma)$:
+$$
+\delta^* :  H^*_G(G/H) \to H^*(\Sigma). 
+$$ 
+%
+On the other hand, it is easy to check by simple reasoning that 
+$$
+H^*_G(G/H) = H^*((EG\times  G/H)/G)\cong H^*(EG/H) \cong H^*((EG \times pt)/H) \cong H^*_H(pt).
+$$
+
+Note that $H^*_H(pt) \cong H^*(BH)$ and we again end up with the map $H^*(BH) \to H^*(\Sigma)$. In fact, this is the same map as the one that we have constructed 
+in Section \ref{5.1}.
+
+%That is, we obtain a map $H_H(pt) \to H(\Sigma)$. We are especially interested in the case of ${\rm dim}(\Sigma)=2$. The relevant equivariant cohomology is 
+%
+%$$
+%H^2_H(pt) \cong \mathfrak{h}^*.
+%$$
+
+%Let $N$ be a manifold (space-time) and let $P\to N$ be a principle $G$-bundle over $N$. Connections on the bundle $P$ are 1-forms $A \in \Omega^1(P, \mathfrak{g})$ which satisfy the invariance and normalization conditions,
+%
+%$$
+%\imath_\xi A = \xi, L_\xi A = [\xi, A].
+%$$
+%As before, we shall denote the corresponding curvature by $F_A=dA+\frac{1}{2} [A,A]$.
+
+%Let $\Sigma \subset N$ be a submanifold of $M$, and let $P|_\Sigma \to \Sigma$ be the restriction of the principal bundle $P$ to $\Sigma$. Assume that over $\Sigma$ the structure group $G$ of $P$ reduces to a subgroup $H \subset G$. That is, there is principal $H$-bundle $Q \to \Sigma$ and an $H$-equivariant inclusion $ \it{i}: Q \to P|_\Sigma$. 
+
+
+%Since $\Sigma$ is 2-dimensional, we are particularly interested in the cohomology group $H^2(BH) \cong {\rm char}(\mathfrak{h}) \subset \mathfrak{h}^*$. Here ${\rm char}(\mathfrak{h})$ is the set of characters of the Lie algebra $\mathfrak{h}$. We have 
+
+%\begin{equation} \label{[]}
+%\lambda \in {\rm char}(\mathfrak{h}) \, {\rm if} \langle \lambda, [x,y] \rangle =0 \, {\rm for \, all} \, x,y \in \mathfrak{h}.
+%\end{equation}
+
+
+
+
+%This  quantity also admits the following (somewhat more complicated description). 
+%Thus we finally get a map $\mathfrak{h}^* \to H(\Sigma)$ which gives exactly the surface observables described in the previous section:
+%
+%$$
+%\lambda \mapsto \varpi(\lambda).
+%$$
+
+
+
+
+\section{$YM_2$ partition function with Wilson surface for $G=U(1)$}
+
+We will study a YM theory on a closed surface $\Sigma$ in the presence of a Wilson surface observable. In order to do it, it is
+convenient to consider a surface $\widehat{\Sigma}$ obtained from $\Sigma$ by cutting a small hole with boundary
+ $\Gamma = \partial \widehat{\Sigma}$. The surface $\Sigma$ can now be obtained by gluing the curve $\Gamma$ into one point.
+ 
+Let $G=U(1)$. Within this simple example it is interesting to compute the partition function for the theory with a Wilson surface by several different methods.
+
+\subsection{Adding Wilson surface into the partition function}
+This method uses the Poisson resummation of the partition function for a closed surface without Wilson observable \eqref{Z_C}. The partition function for a closed surface is of the form
+%
+$$
+Z(\tau) =  \sum_{n \in \mathbb{Z}} e^{ -i\tau n^2} = \sum_{m \in \mathbb{Z}}  \int dn e^{-i2\pi nm}e^{-i\tau n^2} =
+\sqrt{\frac{\pi}{i\tau}} \, \sum_{m \in \mathbb{Z}} e^{ i\pi^2m^2/\tau}.
+$$
+Here the second expression is obtained by using the Poisson summation formula. The meaning of the 
+parameter $m$ is the first Chern class of the $U(1)$ bundle over $\Sigma$.
+
+
+On the other hand, recall that in the case of $G=U(1)$ the Wilson surface observable $S_\lambda$ coincides with the first Chern class of the 
+corresponding $U(1)$ bundle. Hence, adding a factor $\exp(i S_\lambda)$ in the definition of the partition function
+yields
+%
+$$
+Z_\lambda(\tau) = \sqrt{\frac{\pi}{i\tau}} \, \sum_{m \in \mathbb{Z}} e^{ i\pi^2m^2/\tau + i 2\pi \lambda m}.
+$$
+Here $Z_\lambda(\tau)$ stands for the partition function of a closed surface with a Wilson surface observable and the sum is over $m$, the first Chern number of the corresponding $U(1)$-bundle. Using again the Poisson resummation formula, this expression can be rewritten as
+%
+$$
+Z_\lambda(\tau) =  \sqrt{\frac{\pi}{i\tau}} \, \sum_{n \in \mathbb{Z}} \int dm e^{-i2\pi mn} e^{ i\pi^2m^2/\tau + i 2\pi \lambda m} = \sum_{n \in \mathbb{Z}} e^{-i\tau (n-\lambda)^2},
+$$
+ where n is again the label of the representation which gets a shift by $-\lambda$.
+ 
+ \subsection{Hamiltonian formalism}
+
+The same result can be obtained by constructing the partition function with a new Hamiltonian which already contains the Wilson surface operator. 
+In Hamiltonian formalism the formula for the partition function would be:
+
+ %
+ $$ 
+Z_{\lambda}(\tau) = {\rm Tr} e^{-itH_{\lambda}},
+$$
+where $H_{\lambda}$ is the Hamiltonian of the theory perturbed by a Wilson surface operator. 
+The $H_{\lambda}$ is computed in terms of modified canonical momentum:
+
+$$
+\pi_{A_1} = \frac{\partial \mathcal{L}}{\partial (\partial_0 A_1)} = \frac{1}{e^2}F^a_{10} + \lambda . 
+$$
+Then the Hamiltonian density is
+%
+$$
+\mathcal{H_{\lambda}} = (\frac{1}{e^2}F_{10} + \lambda)F_{10} - \frac{1}{e^2}F_{10}F_{10} - \lambda F_{10} = \frac{e^2}{2}\pi_{A_1}^2 - e^2 \lambda \pi_{A_1} + \frac{e^2}{2} \lambda^2  = \frac{e^2}{2}(\pi_{A_1} - \lambda)^2.
+$$
+Recall that the canonical momentum acts as an operator 
+%
+$$
+\pi_{A_1} = -i\frac{\delta}{\delta A_1}.
+$$
+This yields to the Hamiltoninan operator $H_{\lambda}$:
+%
+$$ H_{\lambda} = \int_0^L dx \mathcal{H_{\lambda}} = \frac{e^2}{2}L ( -\frac{\delta}{\delta A_1}\frac{\delta}{\delta A_1} +i 2\lambda \frac{\delta}{\delta A_1} + \lambda ^2).
+$$
+
+Let $w = e^{i\int_0^L dx A_1}$ be a holonomy around a curve of constant time slice. The representations of $U(1)$ are labelled by integers $n \in \mathbb{Z}$. The characters of the representations are given by $\chi_n(w) = w^n$. Then the operator $\frac{\delta}{\delta A_1}$ acts on functions $\chi_n(w)$ as:
+%
+$$
+\frac{\delta}{\delta A_1(y)}e^{in\int_0^L dx A_1} = {\rm lim}_{\epsilon \to 0}\frac{ e^{in\int_0^L A_1(x) + \epsilon \delta(x-y))dx} -  e^{in\int_0^L A_1(x)dx}}{\epsilon}=in e^{in\int_0^L dx A_1}.
+$$
+
+Th eigenvalues of the Hamiltonian are given by its action on its eigenfunctions $\chi_n(w)$:
+%
+$$
+H_{\lambda} \chi_n(w) = \frac{e^2}{2}L ( -\frac{\delta}{\delta A_1}\frac{\delta}{\delta A_1} +i 2\lambda \frac{\delta}{\delta A_1} + \lambda ^2) \chi_n(w)  = \frac{e^2}{2} L  (n^2 - 2\lambda n +\lambda ^2) \chi_n(w) = \frac{e^2}{2} L  (n-\lambda) ^2 \chi_n(w).
+$$
+And the partition function becomes:
+%
+$$
+Z_{\lambda}(\tau) = \sum_{n \in \mathbb{Z}} e^{ -i\tau (n - \lambda )^2}.
+$$			
+
+
+ 
+
+\subsection{Functional integral formalism}
+
+In the functional integral formalism the Wilson surface operator enters as a part of the action and the partition function becomes:
+%
+$$
+Z_{\lambda}(\tau) = \int DA \, e^{iS_{YM} + iS_{\lambda}} = 
+\int DA  \, e^{ \frac{i}{4e^2} \int_{\Sigma} {\rm Tr} F \ast F + i\lambda \int_{\Sigma} F }.
+$$
+We consider $\Sigma$ to be a cylinder with coordinates $(t, x)$, $x$ being periodical of period $L$. 
+We define the 2-form field strength $F$ as
+%
+$$
+F=\frac{2\pi m}{A}dtdx + d\alpha,
+$$
+where $A=tL$ is the surface of the cylinder, $m$ is the first Chern number of the $U(1)$-bundle over $\Sigma$ and $\alpha$ is a 1-form on $\Sigma$. 
+Then 
+%
+$$
+\frac{i}{4e^2}\int_{\Sigma} F\ast F = \frac{i}{2e^2}\int_{\Sigma} (\frac{2\pi m}{A}dtdx + d\alpha)(\frac{2\pi m}{A} + \ast (d\alpha)) = \frac{i}{2e^2}\int_{\Sigma} \frac{4\pi^2m^2}{A^2}dtdx + \frac{i}{2e^2}\int_{\Sigma} ||d\alpha ||^2.
+$$
+The Wilson surface term in the action is recognized to be the bundle invariant, the first Chern number:
+%
+$$
+i\lambda \int_{\Sigma} F = i\lambda 2\pi m.
+$$
+And the functional integral becomes
+%
+$$
+Z_{\lambda}(\tau) = \int DA \, e^{\frac{i}{2e^2} \frac{4\pi^2m^2}{A} +  i\lambda 2\pi m + \frac{i}{2e^2}\int_{\Sigma} ||d\alpha ||^2} = \sum_{n\in\mathbb{Z}} e^{i \pi^2m^2/\tau +  i\lambda 2\pi m} \int D\alpha \, e^{\frac{i}{2e^2}\int_{\Sigma} ||d\alpha ||^2},
+$$
+where we used the definition $\tau = \frac{e^2}{2}A$.
+The functional integral factor is supposed to give the coefficient 
+%
+$$
+\int D\alpha \, e^{\frac{i}{2e^2}\int_{\Sigma} ||d\alpha ||^2} = \sqrt{\frac{\pi}{i\tau}}
+$$
+
+\subsection{Poisson resummation of the functional integral formalism}
+
+An interesting observation can be made. By functional integral method the partition function for 2d-YM with Wilson surface is a sum over the sum is over the first Chern number of the corresponding $U(1)$-bundle:
+%
+$$
+Z_\lambda(\tau) = \sqrt{\frac{\pi}{i\tau}} \, \sum_{m \in \mathbb{Z}} e^{ i\pi^2m^2/\tau + i 2\pi \lambda m}.
+$$
+As we have already seen, this expression is related by the Poisson resummation formula to the partition function summed over the representation labels:
+%
+$$
+Z_\lambda(\tau) = \sqrt{\frac{\pi}{i\tau}} \, \sum_{m \in \mathbb{Z}} e^{ i\pi^2m^2/\tau + i 2\pi \lambda m} =\sqrt{\frac{\pi}{i\tau}} \, \sum_{n \in \mathbb{Z}} \int dm e^{-i2\pi mn} e^{ i\pi^2m^2/\tau + i 2\pi \lambda m} = \sum_{n \in \mathbb{Z}} e^{-i\tau (n-\lambda)^2}.
+$$
+This is precisely the partition function obtained by Hamiltonian formalism. 
+Thus we have shown that the functional integral formalism and the Hamiltonian formalism are related by the Poisson resummation.
+
+
+
+
+
+% Taking the partition function of the YM theory on a punctured surface $\widehat{\Sigma}$ and inserting a Wilson surface observable into it we get:
+%
+%$$
+%Z(\tau, w) = \sum_{n \in \mathbb{Z}} e^{- \tau n^2} w^n  = \sum_{n \in \mathbb{Z}} e^{- \tau n^2 + i n \phi} ,
+%$$
+%where we have used the parametrization $w=e^{i\phi}$. The partition function for a closed surface is of the form
+%
+%$$
+%Z(\tau) =  \sum_{n \in \mathbb{Z}} e^{- \tau n^2} = \frac{1}{\tau \sqrt{2}} \, \sum_{m \in \mathbb{Z}} e^{ - m^2/4\tau}.
+%$$
+%Here the second expression is obtained by using the Poisson summation formula. The meaning of the 
+%parameter $m$ is the first Chern number of the $U(1)$ bundle over $\Sigma$.
+ 
+
+
+
+
+
+
+\begin{thebibliography}{9}
+
+\bibitem{ACM} A. Alekseev, O. Chekeres, P. Mnev. 
+\textit{Equivariant Cohomology for Wilson Lines and Surfaces}.
+Preprint.
+
+\bibitem{AFS} A. Alekseev, L. Faddeev, S. Shatashvili. 
+\textit{Quantization of symplectic orbits of compact Lie groups by means of the functional integral}.
+ J. Geom. Phys. 1988. V. 5. N.3, P. 391-406.
+ 
+\bibitem{Atiyah} M. F. Atiyah. 
+\textit{Geometry of Yang-Milles Fields}.
+ Scuola Normale Superiore, Lezioni Fermiane, Pisa, 1979.
+ 
+\bibitem{CB} C. Beasley.
+\textit{Localization for Wilson Loops in Chern-Simons Theory}.
+J. Andersen, H. Boden, A. Hahn, and B. Himpel (eds.) Chern-Simons Gauge Theory: 20 Years After;
+AMS/IP Studies in Adv. Math. 2011 V. 50; arXiv:0911.2687 [hep-th].
+ 
+\bibitem{Berline} N. Berline, E. Getzler, M. Vergne. 
+\textit{Heat Kernels and Dirac Operators}. 
+Grundlehren Text Editions. Springer Science \& Business Media, 1992. 
+
+\bibitem{Cheeger-Simons} J. Cheeger, J. Simons. 
+\textit{Differential characters and geometric invariants}.
+ Geometry and Topology (College Park, Md., 1983/84); Lect. Notes Math. V. 1167. Berlin: Springer, 1985. P. 50-80.
+ 
+\bibitem{CS} S. Chern, J. Simons. 
+\textit{Characteristic forms and geometric invariants}. 
+Annals of Mathematics. 1974. V. 99. N. 1. P. 48-69.
+
+\bibitem{Moore} S. Cordes, G. Moore, S. Ramgoolam. 
+\textit{Lectures on 2D Yang-Mills Theory, Equivariant Cohomology and Topological Field Theories}. 
+Nucl. Phys. Proc. Suppl. 1995. V41. P. 184-244; arXiv:9411210 [hep-th].
+
+\bibitem{DP} D. Diakonov, V. Petrov. 
+\textit{Non-Abelian Stokes theorem and quark-monopole interaction}. 
+Preprint arXiv:9606104 [hep-th].
+Published version: Nonperturbative approaches to QCD, Proceedings of the Internat. workshop at ECT*, Trento, July 10-29, 1995, D.Diakonov (ed.), PNPI (1995).
+
+\bibitem{WittenDij} R. Dijkgraaf, E. Witten. 
+\textit{Topological gauge theories and group cohomology}. 
+Comm. Math. Phys. 1990. V. 129. N. 2.
+
+\bibitem{Freed1} D. S. Freed. 
+\textit{Classical Chern-Simons theory, Part 1}.  
+Adv.Math. 1995. V. 113. P. 237-303; arXiv:9206021 [hep-th].
+
+\bibitem{Freed2} D. S. Freed. 
+\textit{Classical Chern-Simons theory, Part 2}. 
+Houston J. Math. 2002. V. 28. N. 2.
+
+%\bibitem{GukovKapustin} $\it S. Gukov, A.Kapustin$. 
+%Topological quantum field theory, nonlocal operators, and gapped phases of gauge theories.  arXiv:1307.4793v2 [hep-th].
+%\bibitem{Kapusta} $\it A. Kapustin$. 
+%Bosonic topologial insulators and paramagnets: a view from cobordisms.  
+%arXiv:1404.6659v1 [cond-mat.str-el].
+
+\bibitem{Super} V. W. Guillemin, S. Sternberg. 
+\textit{Supersymmetry and Equivariant de Rham Theory}. 
+Springer - Verlag Berlin Heidelberg GmbH, 1991.
+
+\bibitem{Kirusha} A. A. Kirillov. 
+\textit{Lectures on the orbit method}. 
+Graduate Studies in Mathematics 64, Providence, RI: American Mathematical Society, 2004.
+
+\bibitem{Maggiore} M. Maggiore. 
+\textit{A Modern Introduction to Quantum Field Theory}. 
+Oxford Master Series in Physics, 2008.
+
+\bibitem{Meinrenken} E. Meinrenken. 
+\textit{Informal lecture notes}.
+
+\bibitem{Meinrenken2} E.Meinrenken. 
+\textit{Equivariant cohomology and the Cartan model}.
+http://www.math.toronto.edu/mein/research/enc.pdf 
+ 
+
+\bibitem{Nakahara} M. Nakahara. 
+\textit{Geometry, Topology and Physics}. Second edition. 
+Graduate Student Series in Physics, Taylor\&Francis Group, 2003.
+
+\bibitem{PS} M. E. Peskin, D. S. Schroeder. 
+\textit{An Introduction to Quantum Field Theory}. 
+Perseus Books, Reading, MA, 1995.
+
+\bibitem{Witten} E. Witten. 
+\textit{Topological Quantum Field theory}. 
+Comm. Math. Phys. 1988. V. 117. N. 353.
+
+\bibitem{Witten2} E. Witten. 
+\textit{Two Dimensional Gauge Theories Revisited}. 
+J.Geom.Phys. 1992. V.9 P. 303-368; arXiv:9204083 [hep-th].
+
+
+\end{thebibliography}
+\end{document}
